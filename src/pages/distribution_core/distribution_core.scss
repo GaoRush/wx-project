@@ -1,0 +1,238 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  padding-bottom: 100rpx;
+}
+
+// 头部
+.distribution_core {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .head {
+    display: flex;
+    background-color: $icolor;
+    height: 400rpx;
+    padding: 0 30rpx;
+    padding-top: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    // padding-bottom: 30rpx;
+    z-index: 99;
+    box-sizing: content-box;
+    align-items: center;
+
+    .icon {
+      position: absolute;
+      top: 64px;
+      right: 30rpx;
+      width: 40rpx;
+      height: 40rpx;
+      margin-top: 40rpx;
+    }
+
+    @at-root .distribution_core_amount {
+      text-align: center;
+      color: #fff;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .btn_getMoney {
+        font-size: 24rpx;
+        color: $icolor;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 10rpx 30rpx;
+        margin-left: 20rpx;
+        display: inline-block;
+        text-align: center;
+        line-height: 1;
+      }
+
+      .btn_getWallet {
+        font-size: 24rpx;
+        color: #333;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 20rpx 30rpx;
+        display: inline-block;
+        text-align: center;
+        line-height: 1;
+      }
+
+      .title {
+        font-size: 24rpx;
+        width: 100%;
+      }
+
+      .amount {
+        font-size: 80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 30rpx 0;
+        line-height: 1;
+      }
+
+      .amount_total {
+        margin-bottom: 30rpx;
+      }
+    }
+  }
+
+  .main {
+    padding: 30rpx;
+    z-index: 9;
+    padding-top: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+
+    .enter_item {
+      width: 33.3%;
+      height: 230rpx;
+      text-align: center;
+
+      .icon {
+        width: 110rpx;
+        height: 110rpx;
+        margin-bottom: 10rpx;
+      }
+
+      .title {
+        font-size: 30rpx;
+        color: #666;
+        display: flex;
+        flex-direction: column;
+
+
+      }
+
+      .team_count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 10rpx;
+
+        .num {
+          color: $icolor2;
+        }
+      }
+    }
+  }
+}
+
+// 提现弹窗
+.payTips_pop .box {
+  // width: auto;
+  // margin: 0 30rpx;
+}
+
+.payTips_pop .btn_close {
+  top: -100rpx;
+}
+
+.cash_withdrawal_main {
+  padding: 0 30rpx;
+
+  .amount_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .tle {
+      font-size: 30rpx;
+      border: 0;
+    }
+
+    .amount {
+      font-size: 24rpx;
+      color: #bababa;
+    }
+  }
+
+  .use_money {
+    width: 100%;
+    @include lh(80rpx, 80rpx);
+    text-align: left;
+    @include border(#ebebeb);
+    margin: 20rpx 0;
+    padding: 0 20rpx;
+    border-radius: 4px;
+    font-size: 28rpx;
+  }
+}
+
+.btn_caps {
+  margin: 0 30rpx;
+  margin-top: 30rpx;
+}
+
+// 分享推广
+.enter_item {
+  position: relative;
+}
+
+/* pages/canvas/canvas.wxss */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 9999px;
+  opacity: 0;
+}
+
+.share {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 99;
+  opacity: 0;
+}
+
+.preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: .8);
+  text-align: center;
+
+  image {
+    margin: 0 auto;
+  }
+
+  .btn {
+    position: fixed;
+    bottom: 30rpx;
+    left: 50%;
+    background-color: $icolor;
+    width: 250rpx;
+    @include lh(80rpx, 80rpx);
+    margin-left: -125rpx;
+    padding: 0;
+    font-size: 30rpx;
+  }
+
+  .icon_close {
+    position: absolute;
+    right: 30rpx;
+    top: 30rpx;
+    z-index: 99999;
+    width: 68rpx;
+    height: 68rpx;
+  }
+}

@@ -1,0 +1,10 @@
+<!--components/c-tabBar/c-tabBar.wxml-->
+<!-- <view class='pt110'></view> -->
+<view class='c-tabBar_wrap'>
+  <c-tabBar class='c-tabBar'>
+    <navigator url='{{item.pagePath}}' open-type='reLaunch' class="item {{currentTab == index ? 'active':''}}" wx:for="{{tabBarArray}}" wx:key="index" bindtap='switchTab' data-active='{{index}}'>
+      <image src='{{ currentTab == index? item.selectedIconPath:item.iconPath}}' mode='aspectFit' class='icon'></image>
+      <text class="tle">{{item.text}}</text>
+    </navigator>
+  </c-tabBar>
+</view>

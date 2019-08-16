@@ -1,0 +1,57 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 新增地址表单 -->
+<form bindsubmit="address_edit" class='form_address'>
+  <!-- 联系人:姓名 -->
+  <view class="cell_wrap section">
+    <view class="cell_ft label">联系人</view>
+    <view class="cell_bd input">
+      <input class='accept_name' name="accept_name" data-name="accept_name" placeholder="名字" placeholder-class="input-placeholder" bindinput='bindInput' value='{{address.accept_name}}' />
+    </view>
+  </view>
+  <!-- 手机号码 -->
+  <view class="cell_wrap section">
+    <view class="cell_ft label">手机号码</view>
+    <view class="cell_bd input">
+      <input class='mobile' type="number" name="mobile" data-name="mobile" placeholder="11位手机号码" placeholder-class="input-placeholder" bindblur='bindInput' value='{{address.mobile}}' maxlength='11' />
+    </view>
+  </view>
+  <!-- 地区 -->
+  <view class="cell_wrap section">
+    <view class="cell_ft label">选择地区</view>
+    <view class="cell_bd input">
+      <picker class='picker-region' name='area' mode="region" bindchange="bindRegionChange" value="{{region}}" value='[0]' custom-item="{{customItem}}">
+        <view class="picker">
+          <view class='region'>{{address.area[0]}}</view>
+          <view class='region'>{{address.area[1]}}</view>
+          <view class='region'>{{address.area[2]}}</view>
+        </view>
+      </picker>
+    </view>
+    <view class="cell_ft">
+      <view class="icon_arrow-right"></view>
+    </view>
+  </view>
+  <!-- 详细地址 -->
+  <view class="cell_wrap section  address">
+    <view class="cell_ft label">详细地址</view>
+    <view class="cell_bd input">
+      <textarea class="textarea_address" style="margin:{{hackIos}}" placeholder="街道门牌信息" name="address" data-name="address" value="{{address.address}}" bindinput="bindInput" />
+    </view>
+  </view>
+  <!-- 是否默认地址 -->
+  <view class="cell_wrap section is_default">
+    <view class="cell_bd input">
+      设为默认地址
+      <switch color="#ffb400" checked="{{address.is_default}}" value="{{address.is_default}}" bindchange="is_default" />
+    </view>
+  </view>
+  <button class="btn_caps sure mt100" loading="{{loading}}" disabled="{{btn_sumbit_disabled}}" form-type="submit">
+    <!-- <block wx:if="{{chose_address}}">确认保存并使用</block>
+    <block wx:else>确认保存</block> -->
+    确认保存
+  </button>
+  <button class="btn_caps cancel" loading="{{loading}}" disabled="{{false}}" bindtap="bind_address_del">
+    删除地址
+  </button>
+</form>

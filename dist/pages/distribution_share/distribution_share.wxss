@@ -1,0 +1,29 @@
+page {
+  background-color: #ededed;
+}
+
+/* pages/canvas/canvas.wxss */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 9999px;
+  opacity: 0;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.preview .btn {
+  position: fixed;
+  bottom: 30rpx;
+  left: 50%;
+  background-color: #4864ff;
+  width: 250rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-left: -125rpx;
+  padding: 0;
+}

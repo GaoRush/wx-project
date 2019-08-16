@@ -1,0 +1,24 @@
+<!-- components/c-statusBar/c-statusBar.wxml -->
+<view class="statusBar {{isTransparent?'statusBar_transparent':''}}" style="height:{{statusBarAll}}px">
+  <!-- 状态栏 -->
+  <view class="status-Bar" style="{{statusBarStyle}}"></view>
+  <!-- 标题栏 -->
+  <div class="nav-bar" style="{{navigationBarStyle}}">
+    <!-- 地址导航 -->
+    <block wx:if="{{navToUrl &&  navToUrl!=''}}">
+      <view class='goBack' bindtap='goUrl' style='height:{{navBar_height}}px;' wx:if="{{isBack}}">
+        <view class='icon_arrow'></view>
+      </view>
+    </block>
+    <!-- 回退上一页 -->
+    <block wx:else>
+      <view class='goBack' bindtap='goBack' style='height:{{navBar_height}}px;' wx:if="{{isBack}}">
+        <view class='icon_arrow'></view>
+      </view>
+    </block>
+    <view class='tabar' style='height:{{navBar_height}}px;'>
+      <view class='title' style='{{sty}}'>{{title}}</view>
+    </view>
+  </div>
+</view>
+<view class='pt' style="padding-top:{{statusBarAll}}px; " wx:if='{{!isTransparent}}'></view>

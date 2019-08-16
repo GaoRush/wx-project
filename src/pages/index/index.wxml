@@ -1,0 +1,97 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{false}}" />
+<!-- 首页 -->
+<!-- 搜索 -->
+<from class="search_box mt20" bindsubmit="inputSearch" bindreset="inputReset">
+  <button class="search_btn" formType="submit">
+    <image src="../../assets/images/btn_search.png" class="icon" />
+  </button>
+  <input type="text" class='search_text' placeholder="{{inputVaue?inputVaue:'搜索'}}" confirm-type='search' value="{{inputValue}}" name="search-input" bindconfirm='inputSearch' maxlength='20' />
+</from>
+<!-- banner -->
+<swiper class="banner" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" indicator-color="rgba(255, 255, 255, .6)" indicator-active-color="rgba(255, 255, 255, 1)">
+  <block wx:for="{{banner_list}}" wx:key="item">
+    <swiper-item>
+      <navigator url="../../pages/goods_list/goods_list" class="swiper-item">
+        <image mode='aspectFill' src="{{ url + item.img_url}}" class="banner_pic" />
+      </navigator>
+      <!-- <web-view src="https://www.baidu.com/" class="swiper-item">
+        <image mode='aspectFill' src="{{ url + item.img_url}}" class="banner_pic" />
+      </web-view> -->
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 分类列表 -->
+<view class="category_list">
+  <block wx:if="{{category_list.length>0}}">
+    <block wx:for="{{category_list}}" wx:key="category_item.id" wx:for-index="index" wx:for-item="category_item">
+      <navigator url="{{ index > 8 ? '../../pages/category_list/category_list?curNavId=' +  category_list[0].id + '&index=' + 0 : '../../pages/category_list/category_list?curNavId='+  category_item.id + '&index=' + index}}" class="item">
+        <image mode='aspectFill' src="{{index > 8 ? imgUrl + 'i08.png' : url +  category_item.icon_url}}" class="icon" />
+        <view class="title">{{index > 8 ? '更多' :category_item.sub_title}}</view>
+      </navigator>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据 -</view>
+</view>
+<!-- 商品列表 -->
+<view class="goods_list">
+  <block wx:if="{{goods_list.length>0}}">
+    <block wx:for="{{goods_list}}" wx:key="item.id">
+      <view class="list_item" hidden="{{index>6}}">
+        <view class="hd">
+          <image class="hd_bg" mode="aspectFill" src="{{url + item.imgurl}}" />
+          <view class="tle_wrap">
+            <view class="tle">{{item.title}}</view>
+            <navigator url="{{'../../pages/category_list/category_list?curNavId='+ item.id + '&index=' + index}}" class="more">
+              更多
+            </navigator>
+          </view>
+        </view>
+        <view class="bd">
+          <block wx:for="{{item.list}}" wx:key="itemList.id" wx:for-index="idx" wx:for-item="itemList">
+            <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ itemList.id + '&img_url='+itemList.img_url}}" class='prd_item' hidden="{{idx>8}}" data-index="{{idx}}">
+              <image class="prd_img" mode="aspectFill" src="{{url + itemList.img_url}}" />
+              <view class="prd_name">{{itemList.title}}</view>
+              <view class="prd_price">{{itemList.sell_price}}</view>
+            </navigator>
+          </block>
+        </view>
+      </view>
+      <!-- <navigator url="../../pages/category_list/category_list" class="item">
+      <image mode='aspectFill' src="{{index >= 9 ? imgUrl + 'i08.png' : url + item.icon_url}}" class="icon" />
+      <view class="title">{{index >= 9 ? '更多' :item.sub_title}}</view>
+    </navigator> -->
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据 -</view>
+</view>
+<!-- 猜你喜欢 -->
+<view class="prd_list like">
+  <view class="i_tle boderTop boderBottom">猜你喜欢</view>
+  <view wx:if="{{guess_you_like_list.length>0}}">
+    <block wx:for="{{guess_you_like_list}}" wx:key="like_item.id" wx:for-index="index" wx:for-item="like_item">
+      <view class="prd_item cell_wrap">
+        <view class="cell_hd">
+          <image class="prd_img" mode="aspectFill" src="{{url+like_item.img_url}}" />
+        </view>
+        <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ like_item.id + '&img_url='+like_item.img_url }}" class="cell_bd">
+          <view class="prd_name">{{like_item.title}}</view>
+          <view class="prd_price">{{like_item.sell_price}}</view>
+          <view class="prc_buyNum">{{like_item.sales_volume}} 人已买</view>
+        </navigator>
+        <view class="cell_ft">
+          <view class="btn_shopCart" data-prdindex="{{index}}" bindtap="bindAddCart">
+            <image class="icon" mode="aspectFill" src="../../assets/images/btn_shopCart.png" />
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view wx:else class="noData_tips">- 暂无数据 -</view>
+</view>
+<!-- 弹窗添加购物车组件 -->
+<c-addCart id="addCart" isGroupBuying="{{false}}" />
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<c-tabBar currentTab="0" />
+<!-- 自定义sideBarTool -->
+<c-sideBarTool catchtap="goTop" />

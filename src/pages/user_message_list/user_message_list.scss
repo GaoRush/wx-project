@@ -1,0 +1,36 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  padding-bottom: 100rpx;
+}
+
+// 消息中心
+.user_message_list {
+
+
+  .message_item {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    padding: 30rpx;
+    margin-top: 20rpx;
+    font-size: 30rpx;
+    color: #333;
+
+    .hd {
+      font-size: 24rpx;
+      color: #999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bd {
+      padding: 20rpx 0;
+      padding-bottom: 0;
+    }
+
+  }
+}

@@ -1,0 +1,211 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 提交订单 -->
+<view class="order_submit">
+  <!-- 收货地址 -->
+  <navigator class="cell_wrap address_item" url="{{no_address?'../../pages/address_list/address_list':'../../pages/address_list/address_list?chose_address='+1+'&address_id='+address.id}}">
+    <view class="cell_hd" wx:if="{{no_address}}">
+      <text class="noData_tips">请先填写收货地址</text>
+    </view>
+    <view class="cell_bd col" wx:else>
+      <view class="row">
+        <text class="name">{{address.accept_name}}</text>
+        <text class="mobile">{{address.mobile}}</text>
+        <text class="is_default" wx:if="{{address.is_default==1}}">默认</text>
+      </view>
+      <view class="row address">{{address.address}}</view>
+    </view>
+    <view class="cell_ft">
+      <image class="icon_arrow-right" />
+    </view>
+    <image class="bg_line" mode="aspectFill" src="../../assets/images/icon_address.gif" />
+  </navigator>
+  <!-- 商品列表 -->
+  <block wx:if="{{isGroupBuying}}">
+    <!-- 团购 -->
+    <view class="prd_list">
+      <block wx:if="{{goods}}">
+        <view class="prd_item cell_wrap">
+          <view class="cell_hd">
+            <image class="prd_img" mode="aspectFill" src="{{url+goods.img_url}}" />
+          </view>
+          <view class="cell_bd">
+            <view class="prd_name">{{goods.title}}</view>
+            <view class="prd_price">{{goods.sell_price}}</view>
+          </view>
+          <view class="cell_ft">x{{goods.quantity}}</view>
+        </view>
+      </block>
+      <view wx:else class="tips">- 暂无数据 -</view>
+    </view>
+  </block>
+  <block wx:else>
+    <!-- 普通商品 -->
+    <view class="prd_list">
+      <view wx:if="{{goods_list.length>0}}">
+        <block wx:for="{{goods_list}}" wx:key="item.id">
+          <view class="prd_item cell_wrap">
+            <view class="cell_hd">
+              <image class="prd_img" mode="aspectFill" src="{{url+item.img_url}}" />
+            </view>
+            <view class="cell_bd">
+              <view class="prd_name">{{item.title}}</view>
+              <view class="prd_price">{{item.sell_price}}</view>
+            </view>
+            <view class="cell_ft">x{{item.quantity}}</view>
+          </view>
+        </block>
+      </view>
+      <view wx:else class="tips">- 暂无数据 -</view>
+    </view>
+  </block>
+  <!-- 支付方式 -->
+  <view class="payment_type_wrap">
+    <view class="hd">
+      支付方式
+      <image class="icon_arrow-right" mode="aspectFill" />
+    </view>
+    <view class="bd">
+      <radio-group class="payment_type_radio-group" bindchange="payment_type_radioChange">
+        <label class="radio" wx:for="{{payment_type_items}}" wx:key="item.name">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color="#ffb400" />
+          {{item.name}}
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <!-- 优惠券 -->
+  <view class="coupon_wrap cell_wrap" hidden="{{isGroupBuying}}">
+    <view class="cell_bd">优惠券</view>
+    <view class="cell_ft" bindtap="btn_coupon_pop">
+      <block wx:if="{{checked_num_coupon>0}}">
+        <view class="tips">已选{{checked_num_coupon}}张</view>
+      </block>
+      <block wx:if="{{coupon_list.length>0}}">
+        <view class="active" hidden="{{checked_num_coupon>0}}">有{{coupon_list.length}}张可用</view>
+        <image class="icon_arrow-right" mode="aspectFill" />
+      </block>
+      <block wx:else>无优惠券可用</block>
+    </view>
+  </view>
+  <!-- 优惠券选择窗 -->
+  <view class="coupon_pop_wrap bottom-fixed" wx:if="{{isShow_coupon}}">
+    <scroll-view scroll-y class="coupon_pop" style="height: 60%;">
+      <block wx:if="{{coupon_list.length>0}}">
+        <view class="coupon_item" wx:for="{{coupon_list}}" wx:key="item.id">
+          <view class="hd">
+            <view class="col">
+              <view class="title">{{item.title}}</view>
+              <view class="nick_name">（{{item.nick_name?item.nick_name:'平台'}}赠送）</view>
+            </view>
+            <view class="col">
+              <view class="money prd_price">{{item.money}}</view>
+            </view>
+          </view>
+          <view class="bd">
+            <view class="date">有限期：{{item.start_time}} - {{item.end_time}}</view>
+            <image class="icon_check" mode="aspectFill" data-index="{{index}}" src="{{item.checked?'../../assets/images/icon_checked.png':'../../assets/images/icon_check.png'}}" bindtap="bindCheckCoupon" />
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <image class="icon_close" mode="aspectFill" src="../../assets/images/icon_close.png" bindtap="btn_coupon_pop" />
+  </view>
+  <!-- 是否使用钱包 -->
+  <view class="wallet_wrap cell_wrap">
+    <view class="cell_ft">
+      钱包
+      <switch color="#ffb400" disabled="{{btn_wallet_disabled}}" checked="{{is_wallet}}" value="{{is_wallet}}" bindchange="is_wallet" />
+    </view>
+    <view class="cell_bd">可用余额：￥{{sum_money}}</view>
+    <view class="cell_ft">
+      <view wx:if="{{isGroupBuying && btn_wallet_disabled}}" class="tips">(不少于订单金额才能使用)</view>
+      <view hidden="{{isGroupBuying||!is_wallet}}">
+        <input class='use_money' type="digit" name="use_money" data-name="use_money" placeholder="输入金额" placeholder-class="input-placeholder" bindblur="bindInput_money" value="{{use_money!=0||use_money!=0.00?use_money:''}}" />
+      </view>
+    </view>
+  </view>
+  <!-- 最终订单金额计算过程 -->
+  <view class="order_money-sum">
+    <view class="item goods ">
+      <text>商品金额</text>
+      <text>￥{{order_money}}</text>
+    </view>
+    <view class="item coupon " wx:if="{{!isGroupBuying}}">
+      <text>优惠券</text>
+      <text>-￥{{checked_money_coupon}}</text>
+    </view>
+    <view class="item  wallet ">
+      <text>钱包</text>
+      <text>-￥{{use_money}}</text>
+    </view>
+  </view>
+  <!-- 最终订单金额 -->
+  <view class="order_money-total  cell_wrap">
+    <!-- <view class="cell_hd"></view> -->
+    <view class="cell_bd">
+      应付金额：
+      <view class="totalPrice prd_price">{{totalPrice}}</view>
+    </view>
+    <view class="cell_ft">
+      <!-- 团购提交订单 -->
+      <block wx:if="{{isGroupBuying}}">
+        <button class="btn_sumbit" bindtap="group_buying_order_submit">提交订单</button>
+      </block>
+      <!-- 普通订单提交订单 -->
+      <block wx:else>
+        <button class="btn_sumbit" bindtap="order_submit">提交订单</button>
+      </block>
+    </view>
+  </view>
+</view>
+<!-- 支付提示弹窗 -->
+<view class="payTips_pop_wrap " hidden="{{pay_status==''}}">
+  <view class="payTips_pop">
+    <view class="box">
+      <view class="title">支付提示</view>
+      <view class="pay_tips">
+        <text wx:if="{{pay_status==1}}">订单支付成功</text>
+        <text wx:elif="{{pay_status==2}}">订单支付失败 
+          请在24小时内支付,否则该订单失效</text>
+        <text wx:elif="{{pay_status==3}}">订单提交成功 
+          请您尽快联系客服人员付款</text>
+      </view>
+      <navigator url="../../pages/custom_service/custom_service?fromOrder=true" open-type="reLaunch" class="btn btn_kf" hidden="{{pay_status==2}}">
+        联系客服
+      </navigator>
+      <navigator url="../../pages/index/index" open-type="reLaunch" class="btn btn_kf mt20" hidden="{{pay_status==2}}">
+        随便逛逛
+      </navigator>
+    </view>
+    <block wx:if="{{isGroupBuying}}">
+      <!-- 关闭按钮 -->
+      <navigator url="../../pages/group_buying_list/group_buying_list" open-type="reLaunch">
+        <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+      </navigator>
+    </block>
+    <block wx:else>
+      <!-- 关闭按钮 -->
+      <navigator url="../../pages/shopCart_list/shopCart_list" open-type="reLaunch">
+        <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+      </navigator>
+    </block>
+  </view>
+</view>
+<!-- 支付弹窗 -->
+<view class="payTips_pop_wrap {{order_pay_pop?'order_pay_pop':''}}" hidden="{{!order_pay_pop}}">
+  <view class="payTips_pop">
+    <view class="box">
+      <view class="title">确定付款</view>
+      <view class="order_amount prd_price">{{order_amount}}</view>
+      <view class="tips" wx:if="{{totalPrice==0||totalPrice==0.00}}">
+        （使用优惠券/钱包余额后订单金额为0元时，付款金额为0.01元）
+      </view>
+      <button class="btn_sumbit" bindtap="order_payment">立即付款</button>
+    </view>
+    <!-- 关闭按钮 -->
+    <navigator open-type="reLaunch" url="{{'../../pages/user_order_details/user_order_details?order_no='+ order_no +'&isGroupBuying=' + isGroupBuying + '&fromOrder=true'}}">
+      <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+    </navigator>
+  </view>
+</view>

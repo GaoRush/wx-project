@@ -1,0 +1,26 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{chose_address?false:true}}" />
+<view class="address_list" wx:if="{{total_count>0}}">
+  <block wx:for="{{address_list}}" wx:key="item.id">
+    <view class="cell_wrap address_item {{item.selected?'selected':''}}">
+      <view class="cell_hd"></view>
+      <view class="cell_bd col" data-idx="{{index}}" bindtap="chose_address">
+        <view class="row">
+          <text class="name">{{item.accept_name}}</text>
+          <text class="mobile">{{item.mobile}}</text>
+          <text class="is_default" wx:if="{{item.is_default}}">默认</text>
+        </view>
+        <view class="row address">{{item.address_full}}</view>
+      </view>
+      <view class="cell_ft">
+        <navigator open-type="redirect" class="edit_address" url="{{chose_address?'../../pages/address_details/address_details?addressId='+item.id+'&address_list='+address_list.length+'&chose_address=1':'../../pages/address_details/address_details?addressId='+item.id+'&address_list='+address_list.length}}">
+          <image mode="aspectFill" class="icon" src="../../assets/images/icon_edit.png" />
+        </navigator>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else class="noData_tips">- 暂无数据 -</view>
+<navigator open-type="redirect" class="btn_caps sure bottom-fixed" url="{{chose_address?'../../pages/address_details/address_details?chose_address=1':'../../pages/address_details/address_details'}}">
+  新增地址
+</navigator>

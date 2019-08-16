@@ -1,0 +1,77 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  padding-bottom: 150rpx;
+}
+
+.bottom-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.address_item {
+  font-size: 30rpx;
+  color: #666;
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  min-height: 170rpx;
+  width: auto;
+
+  .cell_ft {
+    padding-left: 20rpx;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .name {
+    display: inline-block;
+    margin-right: 20rpx;
+  }
+
+  .mobile {
+    display: inline-block;
+    margin-right: 20rpx;
+  }
+
+  .address {
+    margin-top: 10rpx;
+  }
+
+  .is_default {
+    display: inline-block;
+    color: #ff3e3e;
+    border: 1px solid #ff3e3e;
+    border-radius: 2px;
+    padding: 1rpx 8rpx;
+    font-size: 26rpx;
+  }
+
+  .edit_address {
+    .icon {
+      width: 48rpx;
+      height: 48rpx;
+    }
+  }
+}
+
+.btn_caps {
+  box-sizing: border-box;
+  width: auto;
+}
+
+.selected {
+  border: 2px solid $icolor;
+}

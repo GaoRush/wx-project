@@ -1,0 +1,47 @@
+<!-- 支付提示弹窗 -->
+<view class="payTips_pop_wrap " hidden="{{pay_status==''}}">
+  <view class="payTips_pop">
+    <view class="box">
+      <view class="title">支付提示</view>
+      <view class="pay_tips">
+        <text wx:if="{{pay_status==1}}">订单支付成功</text>
+        <text wx:elif="{{pay_status==2}}">订单支付失败 
+          请在24小时内支付,否则该订单失效</text>
+        <text wx:elif="{{pay_status==3}}">订单提交成功 
+          请您尽快联系客服人员付款</text>
+      </view>
+      <navigator url="../../pages/index/index" open-type="reLaunch" class="btn" hidden="{{pay_status==2}}">
+        继续逛逛~
+      </navigator>
+    </view>
+    <block wx:if="{{isGroupBuying}}">
+      <!-- 关闭按钮 -->
+      <navigator url="../../pages/group_buying_list/group_buying_list" open-type="reLaunch">
+        <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+      </navigator>
+    </block>
+    <block wx:else>
+      <!-- 关闭按钮 -->
+      <navigator url="../../pages/shopCart_list/shopCart_list" open-type="reLaunch">
+        <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+      </navigator>
+    </block>
+  </view>
+</view>
+<!-- 支付弹窗 -->
+<view class="payTips_pop_wrap {{order_pay_pop?'order_pay_pop':''}}" hidden="{{!order_pay_pop}}">
+  <view class="payTips_pop">
+    <view class="box">
+      <view class="title">确定付款</view>
+      <view class="order_amount prd_price">{{order_amount}}</view>
+      <view class="tips" wx:if="{{totalPrice==0||totalPrice==0.00}}">
+        （使用优惠券/钱包余额后订单金额为0元时，付款金额为0.01元）
+      </view>
+      <button class="btn_sumbit" bindtap="order_payment">立即付款</button>
+    </view>
+    <!-- 关闭按钮 -->
+    <navigator open-type="reLaunch" url="{{'../../pages/user_order_details/user_order_details?order_no='+ order_no +'&isGroupBuying=' + isGroupBuying + '&fromOrder=true'}}">
+      <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+    </navigator>
+  </view>
+</view>

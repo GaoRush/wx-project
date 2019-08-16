@@ -1,0 +1,14 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 消息中心 -->
+<view class="rule_list">
+  <block wx:if="{{total_count>0}}">
+    <block wx:for="{{distribution_rule_list}}" wx:key="item.id" wx:for-index="index">
+      <navigator url="{{'../../pages/help_detail/help_detail?rule_id='+item.id}}" open-type="navigate" class="rule_item">
+        <text class="title">{{item.title}}</text>
+        <view class="icon_arrow-right"></view>
+      </navigator>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据~ -</view>
+</view>

@@ -1,0 +1,40 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{true}}" isBack="{{true}}" />
+<!-- 搜索 -->
+<view class="search_box_wrap" style="padding-top:{{statusBar_height}}px">
+  <!-- 搜索 -->
+  <from class="search_box mt20" bindsubmit="inputSearch" bindreset="inputReset">
+    <button class="search_btn" formType="submit">
+      <image src="../../assets/images/btn_search.png" class="icon" />
+    </button>
+    <input type="text" class='search_text' placeholder="{{inputVaue?inputVaue:'搜索'}}" confirm-type='search' value="{{inputValue}}" name="search-input" bindconfirm='inputSearch' maxlength='20' />
+  </from>
+</view>
+<!-- 分类列表 -->
+<view class="category_list" style="top:{{statusBar_height+50}}px">
+  <!-- 左侧大类 -->
+  <view class="nav_left">
+    <scroll-view class='scroll' style="height:{{scroll_main}}px;white-space:nowrap;" scroll-y scroll-with-animation="{{true}}">
+      <block wx:for="{{category_list}}" wx:key="idx" wx:for-index="idx" wx:for-item="item">
+        <view class="item {{curNavId==item.id?'active':''}}" bindtap="switchRightTab" data-index="{{idx}}" data-id="{{item.id}}">
+          {{item.title}}
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <!-- 右则子类 -->
+  <view class="nav_right ">
+    <scroll-view class='scroll' style="height:{{scroll_main}}px;white-space:nowrap;" scroll-y scroll-with-animation="{{true}}">
+      <!-- 如果有数据，才遍历项 -->
+      <view wx:if="{{category_list[curIndex].children.length!=0}}">
+        <block wx:for="{{category_list[curIndex].children}}" wx:key="children_idx" wx:for-index="children_idx" wx:for-item="children_item">
+          <navigator url="{{'../../pages/goods_list/goods_list?cid='+  children_item.id + '&title='+  children_item.title}}" class="prd_item " hover-class="navigator-hover">
+            <image class="prd_img" mode="aspectFill" src="{{url + children_item.img_url1}}" />
+            <view class="prd_name">{{children_item.title}}</view>
+          </navigator>
+        </block>
+      </view>
+      <view wx:else class="tips">- 暂无数据 -</view>
+    </scroll-view>
+  </view>
+</view>

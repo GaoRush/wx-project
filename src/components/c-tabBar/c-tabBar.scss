@@ -1,0 +1,132 @@
+/* components/c-tabBar/c-tabBar.wxss */
+
+// 公共样式
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+.c-tabBar_wrap {
+  padding-top: $footer-fixed-height;
+}
+
+.c-tabBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: $footer-fixed-height;
+  background-color: #fff;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10rpx #c4c5c6;
+
+}
+
+.c-tabBar .item {
+  display: inline-block;
+  padding: 10rpx 0;
+  width: 100%;
+}
+
+.c-tabBar .item.active .tle {
+  color: $icolor;
+}
+
+.c-tabBar .icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.c-tabBar .tle {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+}
+
+// 购物车底部导航
+.bottom_tabBar {
+
+  width: 100%;
+  height: $footer-fixed-height;
+  background-color: #fff;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10rpx #c4c5c6;
+
+  &.fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .cell {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.br {
+      border-right: 1px solid #ededed;
+    }
+  }
+
+  .item {
+    display: inline-block;
+    padding: 10rpx 0;
+    width: 100%;
+    position: relative;
+
+    &.unRead {
+      .icon {
+        position: relative;
+        overflow: auto;
+        padding-right: 20rpx;
+        margin-right: -15rpx;
+
+        &:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: -5rpx;
+          display: inline-block;
+          width: 15rpx;
+          height: 15rpx;
+          background-color: $icolor2;
+          border: 6rpx solid #fff;
+          border-radius: 50%;
+          z-index: 999;
+        }
+      }
+    }
+
+    .icon {
+      width: 48rpx;
+      height: 48rpx;
+      margin-bottom: 8rpx;
+    }
+
+    .tle {
+      display: block;
+      font-size: 22rpx;
+      color: #999;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    color: $icolor;
+    font-size: 30rprx;
+
+    &.buy {
+      color: #fff;
+      background-color: $icolor;
+    }
+  }
+}

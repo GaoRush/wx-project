@@ -1,0 +1,12 @@
+<view class='c-sideBarTool_wrap'>
+  <c-sideBarTool class='c-sideBarTool'>
+    <image class="icon btn_backTop" mode="aspectFill" src="../../assets/images/icon_backTop.png" bindtap="goTop" />
+    <navigator url="../../pages/shopCart_list/shopCart_list?back=true">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_shopCart.png" />
+    </navigator>
+    <view class="icon_wrap">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_KF.png" />
+      <contact-button class="kf_btn" type="default-dark" size="100" session-from="weapp"></contact-button>
+    </view>
+  </c-sideBarTool>
+</view>

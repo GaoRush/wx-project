@@ -1,0 +1,40 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{true}}" isBack="{{true}}" />
+<!-- 搜索 -->
+<view class="search_box_wrap" style="padding-top:{{statusBar_height}}px">
+  <!-- 搜索 -->
+  <from class="search_box mt20" bindsubmit="inputSearch" bindreset="inputReset">
+    <button class="search_btn" formType="submit">
+      <image src="../../assets/images/btn_search.png" class="icon" />
+    </button>
+    <input type="text" class='search_text' placeholder="{{inputVaue?inputVaue:'搜索'}}" confirm-type='search' value="{{inputValue}}" name="search-input" bindconfirm='inputSearch' maxlength='20' />
+  </from>
+</view>
+<view class='pt_box' style="padding-top:{{statusBar_height+50}}px"></view>
+<!-- 产品列表 -->
+<view class="prd_list">
+  <view wx:if="{{total_count>0}}">
+    <block wx:for="{{goods_list}}" wx:key="{{item.id}}">
+      <view class="prd_item cell_wrap">
+        <view class="cell_hd">
+          <image class="prd_img" mode="aspectFill" src="{{url+item.img_url}}" />
+        </view>
+        <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ item.id + '&img_url='+item.img_url }}" class="cell_bd">
+          <view class="prd_name">{{item.title}}</view>
+          <view class="prd_price">{{item.sell_price}}</view>
+          <view class="prc_buyNum">{{item.sales_volume}} 人已买</view>
+        </navigator>
+        <view class="cell_ft">
+          <view class="btn_shopCart" data-prdindex="{{index}}" bindtap="bindAddCart">
+            <image class="icon" mode="aspectFill" src="../../assets/images/btn_shopCart.png" />
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view wx:else class="tips">- 暂无数据 -</view>
+</view>
+<!-- 弹窗添加购物车组件 -->
+<c-addCart id="addCart" isGroupBuying="{{false}}" />
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<c-tabBar currentTab="-1" />

@@ -1,0 +1,50 @@
+page {
+  background-color: #ededed;
+}
+
+.mt100 {
+  margin-top: 100rpx;
+}
+
+.input-placeholder {
+  color: #ccc;
+}
+
+.section {
+  border-top: 1px solid #ededed;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  font-size: 30rpx;
+  color: #333;
+  min-height: 94rpx;
+}
+
+.section .label {
+  width: 180rpx;
+}
+
+.address {
+  align-items: flex-start;
+}
+
+.address .textarea_address {
+  height: 120rpx;
+  width: 100%;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0;
+}
+
+.picker {
+  display: flex;
+}
+
+.picker .region {
+  width: 100%;
+}
+
+.is_default .input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,12 @@
+<!--components/c-input_text/c-input_text.wxml-->
+<!-- 姓名 -->
+<!-- <view class="cell_wrap section  {{warn_input_name?'cell_warn':''}}">
+
+  <view class="cell_ft warn">
+    <icon type="warn" size="18" color="#E64340" hidden='{{!warn_input_name}}'></icon>
+    <icon type="cancel" size="20" color="#999" hidden='{{!cancel_input_name}}' bindtap='cancel_input_name'></icon>
+  </view>
+
+</view> -->
+
+<input name="{{name}}" placeholder="{{placeholder}}" placeholder-class="input-placeholder" bindinput='input_name' value='{{name}}' />

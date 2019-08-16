@@ -1,0 +1,56 @@
+page {
+  background-color: #f8f8f8;
+}
+
+.myInfo_wrap {
+  margin: 0;
+  border-top: 1px solid #ededed;
+}
+
+.myInfo_wrap .entry-item {
+  min-height: 100rpx;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.myInfo_wrap .entry-item .cell_bd {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.myInfo_wrap .entry-item .cell_bd .icon_arrow-right {
+  margin-left: 10rpx;
+}
+
+.myInfo_wrap .user_name,
+.myInfo_wrap .user_sex {
+  width: 100%;
+}
+
+.myInfo_wrap .user_pic {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+input {
+  min-height: 100%;
+  height: 100%;
+}
+
+.user_mobile {
+  width: 100%;
+  font-size: 30rpx;
+  background-color: transparent;
+  text-align: right;
+  color: #333;
+}
+
+.user_mobile.no_num {
+  text-decoration: underline;
+}
+
+.user_mobile .user_mobile_num {
+  text-decoration: none;
+}

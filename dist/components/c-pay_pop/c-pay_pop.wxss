@@ -1,0 +1,78 @@
+/* components/c-tabBar/c-tabBar.wxss */
+.order_pay_pop .payTips_pop {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  border-top: 1px solid #4864ff;
+  height: auto;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.order_pay_pop .payTips_pop .box {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  background-color: #fff;
+  font-size: 30rpx;
+  color: #666;
+  padding-bottom: 0;
+  margin: 0 auto;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+}
+
+.order_pay_pop .payTips_pop .box .title {
+  font-size: 36rpx;
+  color: #333;
+  border-bottom: 1px solid #ededed;
+  padding: 30rpx;
+  line-height: 1;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.order_pay_pop .payTips_pop .btn_close {
+  width: 68rpx;
+  height: 68rpx;
+  position: absolute;
+  top: -120rpx;
+  right: 30rpx;
+}
+
+.order_pay_pop .order_amount {
+  font-size: 70rpx;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 30rpx;
+}
+
+.order_pay_pop .order_amount.prd_price::before {
+  font-size: 70rpx;
+}
+
+.order_pay_pop .tips {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: -30rpx;
+  margin-bottom: 30rpx;
+  padding: 0 30rpx;
+}
+
+.order_pay_pop .btn_sumbit {
+  display: inline-block;
+  width: 100%;
+  height: 110rpx;
+  line-height: 110rpx;
+  background-color: #4864ff;
+  color: #fff;
+  font-size: 34rpx;
+  text-align: center;
+  border-radius: 0;
+}

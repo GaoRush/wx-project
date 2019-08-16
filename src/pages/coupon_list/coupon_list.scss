@@ -1,0 +1,225 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  padding-bottom: 30rpx;
+}
+
+
+.tab_container {
+  .hd {
+    &.swiper-tab {
+      display: flex;
+      align-items: center;
+      @include lh(80rpx, 80rpx);
+      background-color: #fff;
+
+      .swiper-tab-item {
+        font-size: 26rpx;
+        color: #999;
+        position: relative;
+        width: 100%;
+        text-align: center;
+
+        &.active {
+          color: #333;
+          font-size: 30rpx;
+
+          &::after {
+            content: '';
+            display: inline-block;
+            width: 52rpx;
+            height: 6rpx;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -26rpx;
+            background-color: $icolor;
+          }
+        }
+      }
+    }
+  }
+
+  .bd {
+
+    // 可使用
+    .use {}
+
+    // 已使用
+    .used {
+      .prd_price {
+        color: #999;
+
+        &::before {
+          color: #999;
+        }
+      }
+    }
+
+    // 已过期
+    .overTime {
+      .coupon_item {
+        background-color: #ccc;
+        color: #fff;
+
+        .title,
+        .nick_name,
+        .date {
+          color: #fff;
+        }
+
+        .prd_price {
+          color: #fff;
+
+          &::before {
+            color: #fff;
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+
+.coupon_tips {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 30rpx;
+  background-color: #fff3d6;
+  font-size: 28rpx;
+  color: #999;
+
+  .icon {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 5rpx;
+  }
+}
+
+
+@at-root .coupon_item {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  height: 235rpx;
+  @include border(#dbdbdb);
+  border-left: none;
+  border-right: none;
+  overflow: hidden;
+  border-radius: 8px;
+
+  .hd {
+    border-bottom: 1px dashed #ededed;
+    border-left: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+    padding: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 150rpx;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 28rpx;
+      height: 28rpx;
+      border-radius: 50%;
+      @include border(#dbdbdb);
+      background-color: #edede1;
+      overflow: hidden;
+      position: absolute;
+      left: -14rpx;
+      top: 130rpx;
+      margin-top: 0;
+    }
+
+    &::after {
+      left: auto;
+      right: -14rpx;
+    }
+
+    .title {
+      font-size: 34rpx;
+      color: #333;
+    }
+
+    .nick_name {
+      font-size: 24rpx;
+      color: #999;
+      margin-top: 4rpx;
+    }
+
+    .prd_price {
+      color: #ff3e3e;
+      font-size: 60rpx;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        color: #ff3e3e;
+        font-size: 46rpx;
+      }
+    }
+  }
+
+  .bd {
+    padding: 30rpx;
+    border-left: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 85rpx;
+
+    .date {
+      font-size: 22rpx;
+      color: #999;
+    }
+
+    .icon_check {
+      width: 48rpx;
+      height: 48rpx;
+      z-index: 9999;
+    }
+  }
+}
+
+.btn_coupon {
+  display: inline-block;
+  color: #ff3e3e;
+  font-size: 26rpx;
+  width: 120rpx;
+  text-align: center;
+  // @include lh(54rpx, 54rpx);
+  padding: 8rpx 0;
+  @include border(#ff3e3e);
+  border-radius: 40px;
+  background-color: #fff;
+  line-height: inherit;
+
+  &:last-child {
+    margin-left: 20rpx;
+  }
+}
+
+.btn_wrap {
+  display: flex;
+  align-items: center;
+
+}

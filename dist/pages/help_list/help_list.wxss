@@ -1,0 +1,17 @@
+page {
+  background-color: #ededed;
+  padding-bottom: 100rpx;
+}
+
+.rule_list .rule_item {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  padding: 30rpx;
+  font-size: 30rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+}

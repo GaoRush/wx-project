@@ -1,0 +1,91 @@
+/* components/c-tabBar/c-tabBar.wxss */
+
+// 公共样式
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+// 支付弹窗
+.order_pay_pop {
+  .payTips_pop {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    margin-top: 0;
+    border-top: 1px solid $icolor;
+    height: auto;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+
+    .box {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      background-color: #fff;
+      font-size: 30rpx;
+      color: #666;
+      padding-bottom: 0;
+      margin: 0 auto;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-size: 36rpx;
+        color: #333;
+        border-bottom: 1px solid #ededed;
+        padding: 30rpx;
+        line-height: 1;
+        margin-bottom: 0;
+        font-weight: 600;
+      }
+    }
+
+    .btn_close {
+      width: 68rpx;
+      height: 68rpx;
+      position: absolute;
+      top: -120rpx;
+      right: 30rpx;
+    }
+  }
+
+  .order_amount {
+    font-size: 70rpx;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60rpx 30rpx;
+
+    &.prd_price {
+      &::before {
+        font-size: 70rpx;
+      }
+    }
+  }
+
+  .tips {
+    font-size: 26rpx;
+    color: #999;
+    margin-top: -30rpx;
+    margin-bottom: 30rpx;
+    padding: 0 30rpx;
+  }
+
+  $bottom_height:110rpx;
+
+  .btn_sumbit {
+    display: inline-block;
+    width: 100%;
+    height: $bottom_height;
+    line-height: $bottom_height;
+    background-color: $icolor;
+    color: #fff;
+    font-size: 34rpx;
+    text-align: center;
+    border-radius: 0;
+  }
+}

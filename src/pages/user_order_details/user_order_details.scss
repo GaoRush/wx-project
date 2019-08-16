@@ -1,0 +1,663 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  font-size: 30rpx;
+  color: #333;
+  padding-bottom: 150rpx;
+}
+
+// 收货地址
+.address_item {
+  font-size: 30rpx;
+  color: #666;
+  background-color: #fff;
+  padding: 40rpx 30rpx;
+  padding-bottom: 50rpx;
+  min-height: 170rpx;
+  width: auto;
+  position: relative;
+  border-top: 1px solid #eee;
+
+  .cell_ft {
+    padding-left: 20rpx;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .name {
+    display: inline-block;
+    margin-right: 20rpx;
+  }
+
+  .mobile {
+    display: inline-block;
+    margin-right: 20rpx;
+  }
+
+  .address {
+    margin-top: 10rpx;
+  }
+
+  .is_default {
+    display: inline-block;
+    color: #ff3e3e;
+    border: 1px solid #ff3e3e;
+    border-radius: 2px;
+    padding: 1rpx 8rpx;
+    font-size: 26rpx;
+  }
+
+  .edit_address {
+    .icon {
+      width: 48rpx;
+      height: 48rpx;
+    }
+  }
+
+  .bg_line {
+    width: 100%;
+    height: 14rpx;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+// 产品列表
+.prd_list {
+  width: 100%;
+  margin-top: 20rpx;
+  $pic_height: 196rpx;
+
+  .prd_item {
+    width: 100%;
+    height: $pic_height + 60rpx;
+    padding: 30rpx;
+    float: none;
+    position: relative;
+    margin-bottom: 20rpx;
+    background-color: #fff;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 67%;
+      height: 0;
+      position: absolute;
+      right: 0;
+      bottom: -20rpx;
+      border-bottom: 1px solid #ededed;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .prd_img {
+      width: $pic_height;
+      height: $pic_height;
+      border: 1px solid #dbdbdb;
+    }
+
+    .prd_name {
+      width: 100%;
+      font-size: 30rpx;
+      white-space: inherit;
+      line-height: 1.5;
+
+      @include ell(2);
+
+      margin-top: 0;
+      color: #333;
+    }
+
+    .prd_price {
+      color: $icolor2;
+
+      @include text;
+
+      width: 100%;
+      font-size: 32rpx;
+      margin-top: 20rpx;
+      font-weight: normal;
+      display: flex;
+      align-items: flex-end;
+      line-height: 1;
+      padding-bottom: 10rpx;
+    }
+
+    .prc_buyNum {
+      width: 100%;
+      font-size: 22rpx;
+      color: #999;
+    }
+
+    .btn_shopCart {
+      display: flex;
+      margin: 20rpx 0;
+
+      .icon {
+        width: 58rpx;
+        height: 58rpx;
+      }
+    }
+  }
+
+  .cell_hd {
+    display: flex;
+  }
+
+  .cell_bd {
+    padding: 0 20rpx;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cell_ft {
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    font-size: 30rpx;
+    color: #333;
+  }
+
+  .tips {
+    text-align: center;
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 100rpx auto;
+  }
+}
+
+// 优惠券
+@at-root .coupon_wrap {
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 94rpx;
+  font-size: 30rpx;
+  color: #333;
+
+  @include bb(#ededed);
+
+  background-color: #fff;
+
+  .cell_ft {
+    display: flex;
+    align-items: center;
+    color: #cbcbcb;
+
+    .active {
+      color: #ff3e3e;
+      z-index: 9;
+    }
+
+    .icon_arrow-right {
+      margin-left: 20rpx;
+    }
+  }
+
+  .tips {
+    font-size: 22rpx;
+    color: #ff3e3e;
+    border: 1px solid #ff3e3e;
+    border-radius: 4px;
+    z-index: 99;
+    padding: 2rpx 8rpx;
+  }
+}
+
+// 优惠券选择窗
+.coupon_pop_wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: .8);
+  z-index: 99999;
+
+  .icon_close {
+    width: 48rpx;
+    height: 48rpx;
+    position: absolute;
+    right: 30rpx;
+    bottom: 60%;
+    margin-bottom: 48rpx;
+  }
+}
+
+// 优惠券选择窗
+.coupon_pop {
+  padding: 30rpx;
+  padding-top: 10rpx;
+  height: 70%;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  // -webkit-overflow-scrolling: touch;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+
+  @at-root .coupon_item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20rpx;
+    background-color: #fff;
+    height: 235rpx;
+    @include border(#dbdbdb);
+    border-left: none;
+    border-right: none;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 100%;
+
+    .hd {
+      border-bottom: 1px dashed #ededed;
+      border-left: 1px solid #dbdbdb;
+      border-right: 1px solid #dbdbdb;
+      padding: 30rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 150rpx;
+      position: relative;
+      width: 100%;
+
+      &::before,
+      &::after {
+        content: "";
+        width: 28rpx;
+        height: 28rpx;
+        border-radius: 50%;
+        @include border(#dbdbdb);
+        background-color: #edede1;
+        overflow: hidden;
+        position: absolute;
+        left: -14rpx;
+        top: 130rpx;
+        margin-top: -14rpx;
+      }
+
+      &::after {
+        left: auto;
+        right: -14rpx;
+      }
+
+      .title {
+        font-size: 34rpx;
+        color: #333;
+      }
+
+      .nick_name {
+        font-size: 24rpx;
+        color: #999;
+        margin-top: 4rpx;
+      }
+
+      .prd_price {
+        color: #ff3e3e;
+        font-size: 60rpx;
+        display: flex;
+        align-items: center;
+
+        &::before {
+          color: #ff3e3e;
+          font-size: 46rpx;
+        }
+      }
+    }
+
+    .bd {
+      padding: 30rpx;
+      border-left: 1px solid #dbdbdb;
+      border-right: 1px solid #dbdbdb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .date {
+        font-size: 22rpx;
+        color: #999;
+      }
+
+      .icon_check {
+        width: 48rpx;
+        height: 48rpx;
+        z-index: 9999;
+      }
+    }
+  }
+
+}
+
+// 是否使用钱包
+.wallet_wrap {
+  padding: 30rpx;
+  background-color: #fff;
+  height: 94rpx;
+  font-size: 30rpx;
+
+  .cell_ft {
+    switch {
+      margin-left: 10rpx;
+    }
+  }
+
+  .cell_bd {
+    color: #666;
+    margin: 0 20rpx;
+  }
+
+  .use_money {
+    width: 158rpx;
+    @include lh(50rpx, 50rpx);
+    box-shadow: 0 0 10rpx #c4c5c6;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .input-placeholder {
+    color: #cbcbcb;
+    font-size: 28rpx;
+  }
+}
+
+// 最终订单金额计算过程
+.order_money-sum {
+  margin-top: 20rpx;
+  background-color: #fff;
+  padding: 30rpx;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  color: #333;
+
+  .item {
+    margin-top: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+
+// 最终订单金额计算结果
+$bottom_height:110rpx;
+
+.order_money-total {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: $bottom_height;
+  background-color: #fff;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  color: #666;
+  border-top: 1px solid #eee;
+  overflow: hidden;
+
+  .cell_hd,
+  .cell_bd {
+    padding: 0 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .cell_ft {
+    height: 100%;
+  }
+
+  .cell_bd {
+    justify-content: flex-start;
+  }
+
+  .btn_sumbit {
+    display: inline-block;
+    width: 255rpx;
+    height: $bottom_height;
+    line-height: $bottom_height;
+    background-color: $icolor;
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  .totalPrice {
+    color: $icolor2;
+    display: flex;
+    font-size: 30rpx;
+    min-width: 100rpx;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+// 支付弹窗
+.order_pay_pop {
+  .payTips_pop {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    margin-top: 0;
+    border-top: 1px solid $icolor;
+    height: auto;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+
+    .box {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      background-color: #fff;
+      font-size: 30rpx;
+      color: #666;
+      padding-bottom: 0;
+      margin: 0 auto;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-size: 36rpx;
+        color: #333;
+        border-bottom: 1px solid #ededed;
+        padding: 30rpx;
+        line-height: 1;
+        margin-bottom: 0;
+        font-weight: 600;
+      }
+    }
+
+    .btn_close {
+      width: 68rpx;
+      height: 68rpx;
+      position: absolute;
+      top: -120rpx;
+      right: 30rpx;
+    }
+  }
+
+  .order_amount {
+    font-size: 70rpx;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60rpx 30rpx;
+
+    &.prd_price {
+      &::before {
+        font-size: 70rpx;
+      }
+    }
+  }
+
+  .tips {
+    font-size: 26rpx;
+    color: #999;
+    margin-top: -30rpx;
+    margin-bottom: 30rpx;
+    padding: 0 30rpx;
+  }
+
+  .btn_sumbit {
+    display: inline-block;
+    width: 100%;
+    height: $bottom_height;
+    line-height: $bottom_height;
+    background-color: $icolor;
+    color: #fff;
+    font-size: 34rpx;
+    text-align: center;
+    border-radius: 0;
+  }
+}
+
+
+
+.order_info {
+  padding: 30rpx;
+  background-color: #fff;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10rpx;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.true_pay {
+      font-size: 32rpx;
+
+      .prd_price {
+        color: $icolor2;
+        font-size: 32rpx;
+
+        &::before {
+          color: $icolor2;
+          font-size: 32rpx;
+        }
+      }
+    }
+  }
+
+  .prd_price {
+    color: #666;
+    font-size: 24rpx;
+
+    &::before {
+      color: #666;
+      font-size: 24rpx;
+    }
+  }
+}
+
+.order_info_after {
+  padding: 30rpx;
+  background-color: #fff;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10rpx;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+
+}
+
+.order_pay {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid #ededed;
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 60rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.btn_copy {
+  color: $icolor;
+}
+
+.prd_price_wrap {
+  display: flex;
+}
+
+
+
+.final_amount {
+  font-size: 32rpx;
+
+  .prd_price {
+    color: $icolor2;
+    font-size: 32rpx;
+
+    &::before {
+      color: $icolor2;
+      font-size: 32rpx;
+    }
+  }
+}

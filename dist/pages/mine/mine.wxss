@@ -1,0 +1,226 @@
+page {
+  background-color: #ededed;
+  padding-bottom: 30rpx;
+}
+
+.head_mine {
+  display: flex;
+  background-color: #4864ff;
+  height: 200rpx;
+  padding: 0 30rpx;
+  padding-top: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  align-items: flex-end;
+  box-sizing: content-box;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 34rpx;
+  color: #fff;
+  z-index: 99999;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.user_pic {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user_pic image {
+  width: 100%;
+  height: 100%;
+}
+
+.user_name-wrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.user_name-wrap .row_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user_name-wrap .row_wrap .row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.user_mobile {
+  width: 100%;
+  font-size: 28rpx;
+  background-color: transparent;
+  text-align: left;
+  color: #fff;
+  padding-top: 5rpx;
+  display: flex;
+  align-items: center;
+}
+
+.user_mobile.no_num {
+  text-decoration: underline;
+}
+
+.user_mobile .user_mobile_num {
+  text-decoration: none;
+}
+
+.user_name,
+.btn-login {
+  font-size: 36rpx;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-login {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: 0;
+  text-align: left;
+}
+
+.btn-login::after {
+  border: 0;
+}
+
+.user_sex {
+  margin-left: 10rpx;
+}
+
+.user_news {
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  overflow: inherit;
+  margin-top: -60rpx;
+}
+
+.user_news.active::after {
+  content: '';
+  position: absolute;
+  right: -5rpx;
+  top: -5rpx;
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #ffb400;
+  border: 6rpx solid #4864ff;
+  border-radius: 50%;
+}
+
+.order_list {
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin: 0 30rpx;
+  margin-top: 20rpx;
+}
+
+.order_list .hd {
+  color: #333;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #ededed;
+  line-height: 1;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order_list .hd .btn {
+  font-size: 26rpx;
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+
+.order_list .bd {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.order_list .item {
+  position: relative;
+  padding: 10rpx;
+  width: 100%;
+}
+
+.order_list .item .item_icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.order_list .item .item_name {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 6rpx;
+}
+
+.order_list .item .item_status {
+  position: absolute;
+  right: 45rpx;
+  top: 0;
+  background-color: #ffb400;
+  padding: 0;
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 20rpx;
+  line-height: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearStorage {
+  position: fixed;
+  right: 30rpx;
+  bottom: 20%;
+  z-index: 999;
+  font-size: 22rpx;
+  padding: 10rpx 20rpx;
+}
+
+.mine_main {
+  position: relative;
+}
+
+.btn-login_hide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.mt20 {
+  margin-top: 20rpx;
+}

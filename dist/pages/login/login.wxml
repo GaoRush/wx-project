@@ -1,0 +1,11 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{false}}" />
+<!-- 首页 -->
+<view class="login_wrap">
+  <image class='logo' src="../../assets/images/logo.png" mode='aspectFill'></image>
+  <button class='btn-login' open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+    <image class='icon' src="../../assets/images/icon_wechat.png" mode='aspectFill'></image>
+    微信登录
+  </button>
+  <text class="tips">登陆后即可体验完整功能</text>
+</view>

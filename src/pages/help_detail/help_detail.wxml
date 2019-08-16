@@ -1,0 +1,15 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 消息中心 -->
+<view class="rule_deatil">
+  <!-- 详情内容区 -->
+  <view wx:if="{{rule_details.content}}">
+    <!-- pages/article_detail/article_detail.wxml -->
+    <import src="../../assets/wxParse/wxParse.wxml" />
+    <view class='wxParseArticle'>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+  </view>
+  <view wx:else class="tips">- 暂无数据 -</view>
+  <!-- 商品详情内容区 -->
+</view>

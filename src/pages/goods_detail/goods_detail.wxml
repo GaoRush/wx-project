@@ -1,0 +1,174 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 商品详情 -->
+<view class="goods_detail">
+  <view class="goods_top">
+    <!-- goods_pice -->
+    <div class="goods_pic_wrap">
+      <swiper class="banner goods_pic" bindchange="swiperChange" autoplay="{{true}}" circular="{{true}}">
+        <block wx:for="{{goods_detail.albums}}" wx:key="*this">
+          <swiper-item>
+            <navigator url="{{}}" class="swiper-item">
+              <image mode='aspectFill' src="{{ url + item.original_path}}" class="banner_pic" />
+            </navigator>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="tips" hidden="{{goods_detail.albums.length>0}}">- 暂无图片 -</view>
+      <view class="curNum" hidden="{{goods_detail.albums.length<=0}}">
+        {{curNum}} / {{goods_detail.albums.length}}
+      </view>
+    </div>
+    <!-- 团购 -->
+    <view wx:if="{{isGroupBuying}}" class="gb">
+      <view class="goods_info_wrap">
+        <!-- 倒计时 -->
+        <view class="end_time {{goods_detail.status==3?'end':''}}">
+          <block wx:if="{{goods_detail.status==1}}">即将开团</block>
+          <block wx:elif="{{goods_detail.status==2}}">
+            还剩：{{countDownList[0].day}}天{{countDownList[0].hou}}小时{{countDownList[0].min}}分{{countDownList[0].sec}}秒
+          </block>
+          <block wx:elif="{{goods_detail.status==3}}">团购已结束</block>
+        </view>
+        <view class="box">
+          <view class="goods_info flex-1">
+            <view class="goods_name">{{goods_detail.title}}</view>
+            <view class="goods_model">产品型号：{{goods_detail.goods_model}}</view>
+            <view class="goods_no">产品编码：{{goods_detail.goods_no}}</view>
+            <!-- <view class="prd_price">{{goods_detail.sell_price}}</view> -->
+          </view>
+          <view class="btn_col" bindtap="bindCol">
+            <image class="icon" mode='aspectFill' src="{{goods_detail.is_collect==1?'../../assets/images/icon_col-on.png':'../../assets/images/icon_col.png'}}" />
+            <text>{{goods_detail.collect_quantity}}人已收藏</text>
+          </view>
+        </view>
+        <view class="goods_stauts">
+          <text>{{goods_detail.click}} 人浏览</text>
+          <view class="num_wrap">
+            <view class="num">
+              {{goods_detail.group_buying_people?goods_detail.group_buying_people:goods_detail.sales_volume}}
+            </view>
+            人在拼单，可直接参与
+          </view>
+        </view>
+      </view>
+      <!-- 团购价格说明 -->
+      <view class="gb_price_info">
+        <view class="i_tle boderTop boderBottom">
+          <view>团购价格</view>
+          <navigator url="{{'../../pages/help_detail/help_detail?rule_id='+2}}" class="icon_wrap">
+            <image class="icon" mode="aspectFill" src="../../assets/images/icon_question.png" />
+            团购规则说明
+          </navigator>
+        </view>
+        <view class="item">
+          <text class="label">原             价：</text>
+          <text class="prd_price  gb_price">{{goods_detail.sell_price}}</text>
+        </view>
+        <view class="item">
+          <text class="label">三级团购，满{{goods_detail.people3}}人：</text>
+          <text class="prd_price">{{goods_detail.price3}}</text>
+        </view>
+        <view class="item">
+          <text class="label">二级团购，满{{goods_detail.people2}}人：</text>
+          <text class="prd_price">{{goods_detail.price2}}</text>
+        </view>
+        <view class="item">
+          <text class="label">一级团购，满{{goods_detail.people1}}人：</text>
+          <text class="prd_price">{{goods_detail.price1}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 普通商品 -->
+    <block wx:else>
+      <view class="goods_info_wrap">
+        <view class="flex flex-justify-pack">
+          <view class="goods_info flex-1">
+            <view class="goods_name">{{goods_detail.title}}</view>
+            <view class="goods_model">产品型号：{{goods_detail.goods_model}}</view>
+            <view class="goods_no">产品编码：{{goods_detail.goods_no}}</view>
+            <view class="prd_price">{{goods_detail.sell_price}}</view>
+          </view>
+          <view class="btn_col" bindtap="bindCol">
+            <image class="icon" mode='aspectFill' src="{{goods_detail.is_collect?'../../assets/images/icon_col-on.png':'../../assets/images/icon_col.png'}}" />
+            <text>{{goods_detail.collect_quantity}}人已收藏</text>
+          </view>
+        </view>
+        <view class="goods_stauts">
+          <text>{{goods_detail.click}} 人浏览</text>
+          <text>{{goods_detail.sales_volume}} 人已买</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <div class="goods_bottom">
+    <view class="i_tle boderTop boderBottom">商品详情</view>
+    <!-- 商品详情内容区 -->
+    <view wx:if="{{goods_detail.content}}">
+      <!-- pages/article_detail/article_detail.wxml -->
+      <import src="../../assets/wxParse/wxParse.wxml" />
+      <view class='wxParseArticle goods_content'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+    </view>
+    <view wx:else class="tips">- 暂无数据 -</view>
+    <!-- 商品详情内容区 -->
+  </div>
+  <!-- 猜你喜欢 -->
+  <view class="prd_list like">
+    <view class="i_tle boderTop boderBottom">猜你喜欢</view>
+    <block wx:if="{{guess_you_like_list.length>0}}">
+      <block wx:for="{{guess_you_like_list}}" wx:key="like_item.id" wx:for-index="index" wx:for-item="like_item">
+        <view class="prd_item cell_wrap">
+          <view class="cell_hd">
+            <image class="prd_img" mode="aspectFill" src="{{url+like_item.img_url}}" />
+          </view>
+          <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ like_item.id + '&img_url='+like_item.img_url }}" class="cell_bd">
+            <view class="prd_name">{{like_item.title}}</view>
+            <view class="prd_price">{{like_item.sell_price}}</view>
+            <view class="prc_buyNum">{{like_item.sales_volume}} 人已买</view>
+          </navigator>
+          <view class="cell_ft">
+            <view class="btn_shopCart" data-prdindex="{{index}}" bindtap="bindAddCart">
+              <image class="icon" mode="aspectFill" src="../../assets/images/btn_shopCart.png" />
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+    <view wx:else class="noData_tips">- 暂无数据 -</view>
+  </view>
+</view>
+<!-- 购物车底部导航 -->
+<view class="bottom_tabBar fixed {{isGroupBuying?'gb':''}}">
+  <view class="cell br">
+    <navigator url='../../pages/index/index' open-type="redirect" class="item">
+      <image src='../../assets/images/icon_home.png' mode='aspectFit' class='icon'></image>
+      <text class="tle">首页</text>
+    </navigator>
+    <navigator url='../../pages/shopCart_list/shopCart_list?back=true' open-type="navigate" class="item  {{newCart?'unRead':''}}">
+      <image src='../../assets/images/icon_myCart.png' mode='aspectFit' class='icon'></image>
+      <text class="tle">购物车</text>
+    </navigator>
+  </view>
+  <!-- 团购 -->
+  <block wx:if="{{isGroupBuying}}">
+    <block wx:if="{{goods_detail.status==2}}">
+      <view class="cell btn buy" bindtap="gb_bindAddCart" data-btntype="gb_buy">立即购买</view>
+    </block>
+    <block wx:else>
+      <view class="cell btn buy  disabled">立即购买</view>
+    </block>
+  </block>
+  <!-- 普通商品 -->
+  <block wx:else>
+    <view class="cell btn addCart" bindtap="bindAddCart" data-btntype="addCart">加入购物车</view>
+    <view class="cell btn buy" bindtap="bindAddCart" data-btntype="buy">立即购买</view>
+  </block>
+</view>
+<!-- 弹窗添加购物车组件 -->
+<c-addCart id="addCart" goodsId="{{goodsId}}" goodsInfo="{{}}" showCart="{{false}}" />
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<!-- <c-tabBar currentTab="0" /> -->
+<!-- 自定义sideBarTool -->
+<c-sideBarTool catchtap="goTop" />

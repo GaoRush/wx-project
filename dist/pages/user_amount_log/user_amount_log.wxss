@@ -1,0 +1,60 @@
+page {
+  background-color: #ededed;
+  padding-bottom: 20rpx;
+}
+
+.user_amount_log .wallet_item {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  padding: 30rpx;
+  font-size: 30rpx;
+  color: #333;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.user_amount_log .wallet_item .icon {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 50%;
+  left: 30rpx;
+  margin-top: -30rpx;
+}
+
+.user_amount_log .wallet_item .cell_hd {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.user_amount_log .wallet_item .cell_bd {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 30rpx;
+  padding-left: 90rpx;
+}
+
+.user_amount_log .wallet_item .cell_bd text {
+  width: 100%;
+}
+
+.user_amount_log .wallet_item .cell_bd .add_time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.user_amount_log .wallet_item .cell_ft {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-width: 200rpx;
+}

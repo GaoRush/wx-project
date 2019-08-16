@@ -1,0 +1,199 @@
+page {
+  background-color: #ededed;
+  padding-bottom: 30rpx;
+}
+
+.tab_container .hd.swiper-tab {
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #fff;
+}
+
+.tab_container .hd.swiper-tab .swiper-tab-item {
+  font-size: 26rpx;
+  color: #999;
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.tab_container .hd.swiper-tab .swiper-tab-item.active {
+  color: #333;
+  font-size: 30rpx;
+}
+
+.tab_container .hd.swiper-tab .swiper-tab-item.active::after {
+  content: '';
+  display: inline-block;
+  width: 52rpx;
+  height: 6rpx;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -26rpx;
+  background-color: #4864ff;
+}
+
+.tab_container .bd .used .prd_price {
+  color: #999;
+}
+
+.tab_container .bd .used .prd_price::before {
+  color: #999;
+}
+
+.tab_container .bd .overTime .coupon_item {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.tab_container .bd .overTime .coupon_item .title,
+.tab_container .bd .overTime .coupon_item .nick_name,
+.tab_container .bd .overTime .coupon_item .date {
+  color: #fff;
+}
+
+.tab_container .bd .overTime .coupon_item .prd_price {
+  color: #fff;
+}
+
+.tab_container .bd .overTime .coupon_item .prd_price::before {
+  color: #fff;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.coupon_tips {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 30rpx;
+  background-color: #fff3d6;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.coupon_tips .icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 5rpx;
+}
+
+.coupon_item {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  height: 235rpx;
+  border: 1px solid #dbdbdb;
+  border-left: none;
+  border-right: none;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.coupon_item .hd {
+  border-bottom: 1px dashed #ededed;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 150rpx;
+  position: relative;
+  width: 100%;
+}
+
+.coupon_item .hd::before, .coupon_item .hd::after {
+  content: "";
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  border: 1px solid #dbdbdb;
+  background-color: #edede1;
+  overflow: hidden;
+  position: absolute;
+  left: -14rpx;
+  top: 130rpx;
+  margin-top: 0;
+}
+
+.coupon_item .hd::after {
+  left: auto;
+  right: -14rpx;
+}
+
+.coupon_item .hd .title {
+  font-size: 34rpx;
+  color: #333;
+}
+
+.coupon_item .hd .nick_name {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.coupon_item .hd .prd_price {
+  color: #ff3e3e;
+  font-size: 60rpx;
+  display: flex;
+  align-items: center;
+}
+
+.coupon_item .hd .prd_price::before {
+  color: #ff3e3e;
+  font-size: 46rpx;
+}
+
+.coupon_item .bd {
+  padding: 30rpx;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 85rpx;
+}
+
+.coupon_item .bd .date {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.coupon_item .bd .icon_check {
+  width: 48rpx;
+  height: 48rpx;
+  z-index: 9999;
+}
+
+.btn_coupon {
+  display: inline-block;
+  color: #ff3e3e;
+  font-size: 26rpx;
+  width: 120rpx;
+  text-align: center;
+  padding: 8rpx 0;
+  border: 1px solid #ff3e3e;
+  border-radius: 40px;
+  background-color: #fff;
+  line-height: inherit;
+}
+
+.btn_coupon:last-child {
+  margin-left: 20rpx;
+}
+
+.btn_wrap {
+  display: flex;
+  align-items: center;
+}

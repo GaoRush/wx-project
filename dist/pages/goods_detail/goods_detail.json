@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "c-statusBar": "/components/c-statusBar/c-statusBar",
+    "c-tabBar": "/components/c-tabBar/c-tabBar",
+    "c-input_text": "/components/c-input_text/c-input_text",
+    "c-addCart": "/components/c-addCart/c-addCart",
+    "c-sideBarTool": "/components/c-sideBarTool/c-sideBarTool"
+  }
+}

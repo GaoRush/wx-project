@@ -1,0 +1,214 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #fff;
+}
+
+.statusBar .pt {
+  display: block !important;
+}
+
+$search_box_height:50px;
+
+.search_box_wrap {
+  display: flex;
+  background-color: $icolor;
+  height: $search_box_height;
+  padding: 0 30rpx;
+  // padding-top: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  align-items: flex-end;
+  border-right-color: $icolor;
+  box-sizing: content-box;
+
+  .search_box {
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 11px;
+  }
+}
+
+// 搜索
+.search_box {
+  background-color: #ededed;
+  border-radius: 6rpx;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 35px;
+
+  @at-root .search_btn {
+    width: 68rpx;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+
+    .icon {
+      width: 26rpx;
+      height: 26rpx;
+    }
+  }
+
+  @at-root .search_text {
+    color: #333;
+    font-size: 26rpx;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    line-height: 1.5;
+
+    &::-webkit-input-placeholder {
+      color: #b2b2b2;
+    }
+  }
+}
+
+// 分类列表
+.category_list {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  top: 64px;
+  left: 0;
+
+  // 左侧大类
+  .nav_left {
+    width: 225rpx;
+    height: 100%;
+    background-color: #f5f5f5;
+
+
+    .item {
+      font-size: 30rpx;
+      color: #333;
+      position: relative;
+      text-align: center;
+      height: 100rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active {
+        color: $icolor;
+        background-color: #fff;
+
+        &::after {
+          content: '';
+          display: inline-block;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 8rpx;
+          height: 30rpx;
+          margin-top: -15rpx;
+          background-color: $icolor;
+        }
+      }
+    }
+  }
+
+  // 右则子类
+  .nav_right {
+    background-color: #fff;
+    // padding: 0 20rpx;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    height: 100%;
+
+    .scroll {
+      padding: 30rpx 20rpx;
+      padding-bottom: 0;
+      box-sizing: border-box;
+    }
+
+    .tips {
+      text-align: center;
+      font-size: 30rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include prc();
+      margin-top: -15rpx;
+    }
+  }
+}
+
+@at-root .prd_item {
+  width: 33.3%;
+  margin-bottom: 30rpx;
+  float: left;
+  // margin-right: 40rpx;
+  text-align: center;
+  line-height: 1;
+
+  // &:nth-child(3n) {
+  //   margin-right: 0;
+  // }
+
+  .prd_img {
+    width: 126rpx;
+    height: 126rpx;
+    border-radius: 4rpx;
+    border: 1rpx solid #dbdbdb;
+  }
+
+  .prd_name {
+    font-size: 26rpx;
+    color: #666;
+    @include text;
+    margin-top: 15rpx;
+  }
+
+  .prd_price {
+    font-size: 24rpx;
+    color: $icolor2;
+    @include text;
+  }
+}
+
+//去掉滚动阴影效果
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+
+// 头部适配
+// @media screen and (max-width: 320px) {
+//   .search_box_wrap {
+//     height: 110px !important;
+//   }
+
+//   .category_list {
+//     margin-top: 110px !important;
+//   }
+// }
+
+// @media screen and (min-width: 375px) and (min-height: 800px) {
+//   .search_box_wrap {
+//     height: 140px !important;
+//   }
+
+//   .category_list {
+//     margin-top: 140px !important;
+//   }
+// }
+
+// @media screen and (min-width:640px) {
+//   .search_box_wrap {
+//     height: 180rpx !important;
+//   }
+
+//   .category_list {
+//     margin-top: 180rpx !important;
+//   }
+// }

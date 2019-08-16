@@ -1,0 +1,67 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{back}}" />
+<!-- 购物车列表 -->
+<view class="shopCart_list">
+  <block wx:if="{{shopCart_list.length>0}}">
+    <block wx:for="{{shopCart_list}}" wx:key="item.id">
+      <view class="prd_item ">
+        <!-- 滑动区 -->
+        <movable-area class="slider_delete">
+          <movable-view out-of-bounds="true" direction="horizontal" x="{{item.xmove}}" data-prdindex="{{index}}" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindchange="handleMovableChange">
+            <view class="cell_wrap">
+              <view class="cell_hd">
+                <view class="btn_check {{item.selected?'selected':''}}" data-prdindex="{{index}}" bindtap="selectCart" />
+              </view>
+              <view class="cell_bd">
+                <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ item.goods_id + '&img_url='+item.img_url }}">
+                  <image class="prd_img" mode="aspectFill" src="{{url+item.img_url}}" />
+                </navigator>
+                <view class="col">
+                  <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ item.goods_id + '&img_url='+item.img_url }}" class="prd_name">
+                    {{item.title}}
+                  </navigator>
+                  <view class="row">
+                    <view class="prd_price">{{item.sell_price}}</view>
+                    <!-- 加减数字 -->
+                    <view class="acount">
+                      <!-- 减号 -->
+                      <view class="unit minus {{item.quantity<=1?'disabled':'normal'}}" data-prdindex="{{index}}" bindtap="bindMinus">
+                        -
+                      </view>
+                      <!-- 数值 -->
+                      <input class="input-text" type="number" data-prdindex="{{index}}" bindchange="bindInput" value="{{item.quantity}}" disabled="{{slider_disabled}}" />
+                      <!-- 加号 -->
+                      <view class="unit plus" data-prdindex="{{index}}" bindtap="bindPlus">+</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="cell_ft"></view>
+            </view>
+          </movable-view>
+        </movable-area>
+        <!-- 删除按钮 -->
+        <view class="btn_delete" data-id="{{item.id}}" data-prdindex="{{index}}" bindtap="handleSlideDelete">
+          删除
+        </view>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 空荡荡的购物车~ -</view>
+</view>
+<!-- 购物车结算 -->
+<view class="shopCart_submit  cell_wrap">
+  <view class="cell_hd">
+    <view class="btn_check {{selectAllStatus?'selected':''}}" data-shopcartid="{{item.id}}" bindtap="selectCartAll" />
+    全选
+  </view>
+  <view class="cell_bd">
+    合计：
+    <view class="totalPrice prd_price">{{totalPrice}}</view>
+  </view>
+  <view class="cell_ft">
+    <button class="btn_sumbit" bindtap="cart_submit_pre">结算</button>
+  </view>
+</view>
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<c-tabBar currentTab="3" />

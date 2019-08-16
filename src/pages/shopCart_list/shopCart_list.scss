@@ -1,0 +1,309 @@
+@import "./src/assets/sass/_mixin.scss";
+@import "./src/assets/sass/_var.scss";
+
+page {
+  background-color: #ededed;
+  padding-bottom: 230rpx;
+}
+
+// 购物车列表
+.shopCart_list {
+  width: 100%;
+  padding: 30rpx 0;
+
+  $pic_height: 196rpx;
+
+  .prd_item {
+    width: 100%;
+    height: auto;
+
+    // padding: 30rpx;
+    float: none;
+    position: relative;
+    margin-bottom: 20rpx;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .prd_img {
+      width: $pic_height;
+      height: $pic_height;
+      border: 1px solid #dbdbdb;
+    }
+
+    .prd_name {
+      width: 100%;
+      font-size: 30rpx;
+      white-space: inherit;
+      line-height: 1.5;
+      min-height: 150rpx;
+      @include ell(2);
+
+      margin-top: 0;
+      color: #333;
+    }
+
+    .prd_price {
+      color: $icolor2;
+
+      @include text;
+
+      font-size: 32rpx;
+
+      // margin-top: 20rpx;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-end;
+      line-height: 1;
+
+      // padding-bottom: 10rpx;
+
+    }
+
+    .prc_buyNum {
+      width: 100%;
+      font-size: 22rpx;
+      color: #999;
+    }
+
+    .btn_shopCart {
+      display: flex;
+      margin: 20rpx 0;
+
+      .icon {
+        width: 58rpx;
+        height: 58rpx;
+      }
+    }
+  }
+
+  .cell_wrap {
+    padding: 30rpx;
+    width: auto;
+  }
+
+  .cell_hd {
+    display: flex;
+  }
+
+  .cell_bd {
+    height: 100%;
+    display: flex;
+
+    .col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-left: 20rpx;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .cell_ft {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .tips {
+    text-align: center;
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 100rpx auto;
+  }
+
+  @at-root .btn_check {
+    width: 40rpx;
+    height: 40rpx;
+    border: 1px solid #d4d4d4;
+    position: relative;
+    border-radius: 50%;
+    margin-right: 20rpx;
+
+    &.selected {
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 20rpx;
+        height: 20rpx;
+        border-radius: 50%;
+        background-color: $icolor2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -10rpx;
+        margin-top: -10rpx;
+      }
+    }
+  }
+}
+
+// 添加数字
+@at-root .acount {
+  display: block;
+  width: 180rpx;
+  position: relative;
+  @include lh(48rpx, 48rpx);
+  overflow: hidden;
+  float: right;
+
+  .unit {
+    display: block;
+    background-color: #fff;
+    width: 48rpx;
+    @include lh(48rpx, 48rpx);
+    text-align: center;
+    font-size: 36rpx;
+    color: #999;
+    border: 1px solid #999;
+    padding: 0;
+    z-index: 1;
+    margin: 0;
+    float: left;
+
+    &.normal {
+      color: #999;
+    }
+
+    &.disabled {
+      color: #dbdbdb !important;
+      background-color: #fff !important;
+      border-color: #dbdbdb;
+    }
+
+    &.minus {
+      border-right-color: transparent;
+    }
+
+    &.plus {
+      border-left-color: transparent;
+    }
+  }
+
+  .input-text {
+    display: block;
+    width: 84rpx;
+    @include lh(48rpx, 48rpx);
+    border: 1px solid #999;
+    padding: 0;
+    margin: 0;
+    min-height: auto;
+    text-align: center;
+    font-size: 26rpx;
+    color: #333;
+    z-index: 2;
+    overflow: hidden;
+    float: left;
+  }
+}
+
+// 左滑删除
+$slider_height: 196rpx+60rpx;
+$btn_del: 120rpx;
+
+movable-area.slider_delete {
+  height: $slider_height;
+  width: calc(100vw - #{$btn_del});
+
+  // width: 100vw;
+  box-sizing: border-box;
+}
+
+movable-area.slider_delete movable-view {
+  height: $slider_height;
+  width: 100vw;
+  background: #fff;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.btn_delete {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: $btn_del;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  height: $slider_height;
+  z-index: 1;
+  background-color: $icolor2;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+// 购物车结算
+$bottom_height:110rpx;
+
+.shopCart_submit {
+  position: fixed;
+  bottom: $bottom_height;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: $bottom_height;
+  background-color: #fff;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  color: #666;
+  border-top: 1px solid #eee;
+
+  .cell_hd,
+  .cell_bd {
+    padding: 0 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cell_ft {
+    height: 100%;
+  }
+
+
+  .cell_bd {
+    justify-content: flex-end;
+    padding-left: 0;
+  }
+
+  .btn_sumbit {
+    display: inline-block;
+    width: 255rpx;
+    height: $bottom_height;
+    line-height: $bottom_height;
+    background-color: $icolor;
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  .totalPrice {
+    color: $icolor2;
+    display: flex;
+    font-size: 30rpx;
+    min-width: 100rpx;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

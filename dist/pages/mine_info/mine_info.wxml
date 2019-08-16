@@ -1,0 +1,46 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<view class='entry-wrap mt20 myInfo_wrap'>
+  <!-- 昵称 -->
+  <view class='cell_wrap entry-item'>
+    <view class='cell_hd'>昵称</view>
+    <view class='cell_bd'>
+      <input class='user_name' value="{{userInfo.nick_name}}" name="{{userInfo.nick_name!=''?userInfo.nick_name:'用户'}}" placeholder="{{userInfo.nick_name!=''?userInfo.nick_name:'用户'}}" bindinput='input_name' bindblur='input_name_send' maxlength='20' />
+    </view>
+  </view>
+  <!-- 头像 -->
+  <view class='cell_wrap entry-item'>
+    <view class='cell_hd'>头像</view>
+    <view class='cell_bd'>
+      <image src="{{userInfo.avatar_url!=''?userInfo.avatar_url:'../../assets/images/icon_user.png'}}" mode='aspectFill' class='user_pic' bindtap='edit_headimg'></image>
+      <view class='icon_arrow-right'></view>
+    </view>
+  </view>
+  <!-- 性别 -->
+  <view class='cell_wrap entry-item'>
+    <view class='cell_hd'>性别</view>
+    <view class='cell_bd'>
+      <picker class="user_sex" value="{{index}}" bindchange="sexChange" range="{{sexArray}}">
+        <view wx:if="{{userInfo.sex==1}}">男</view>
+        <view wx:elif="{{userInfo.sex==2}}">女</view>
+        <view wx:else>未知</view>
+      </picker>
+      <view class='icon_arrow-right'></view>
+    </view>
+  </view>
+  <!-- 手机号码 -->
+  <view class="cell_wrap entry-item">
+    <view class="cell_hd label">手机号码</view>
+    <view class="cell_bd input">
+      <block wx:if="{{userInfo.mobile==''}}">
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="user_mobile  mobile no_num}}">
+          绑定手机
+        </button>
+      </block>
+      <block wx:else>
+        <view class="user_mobile">{{userInfo.mobile}}</view>
+      </block>
+      <!-- <input class='mobile' disabled="true" type="number" name="mobile" data-name="mobile" placeholder="11位手机号码" placeholder-class="input-placeholder" bindblur='bindInput' value='{{userInfo.mobile}}' maxlength='11' /> -->
+    </view>
+  </view>
+</view>

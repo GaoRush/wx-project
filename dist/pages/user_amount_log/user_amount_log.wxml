@@ -1,0 +1,20 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 钱包记录 -->
+<view class="user_amount_log">
+  <block wx:if="{{total_count>0}}">
+    <block wx:for="{{user_amount_log}}" wx:key="item.id">
+      <view class="cell_wrap  wallet_item">
+        <view class="cell_hd">
+          <image class="icon" mode="aspectFill" src="../../assets/images/icon_money.png" />
+        </view>
+        <view class="cell_bd col">
+          <text class="remark">{{item.remark}}</text>
+          <text class="add_time">{{item.add_time}}</text>
+        </view>
+        <view class="cell_ft ">{{item.value}}</view>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据 -</view>
+</view>

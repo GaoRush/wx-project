@@ -1,0 +1,78 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{true}}" isBack="{{true}}" />
+<!-- 分销头部 -->
+<view class="distribution_core">
+  <view class='head' style="padding-top:{{statusBar_height}}px">
+    <view class='distribution_core_amount'>
+      <text class="title">当前钱包(元)</text>
+      <view class="amount">
+        {{amount}}
+        <!-- <navigator url="../../pages/cash_withdrawal/cash_withdrawal" class="btn_getMoney" open-type="navigate">
+          提现
+        </navigator> -->
+        <view class="btn_getMoney" bindtap="cash_withdrawal">提现</view>
+      </view>
+      <view class="amount_total">累积收益(元)：{{amount_total}}</view>
+      <view>
+        <navigator class="btn_getWallet" url="../../pages/user_amount_log/user_amount_log" open-type="navigate">
+          钱包记录
+        </navigator>
+      </view>
+    </view>
+    <navigator url="{{'../../pages/help_detail/help_detail?rule_id='+1}}">
+      <image class="icon" src="../../assets/images/icon_question02.png" mode='aspectFill' style="top:{{statusBar_height}}px"></image>
+    </navigator>
+  </view>
+  <view class="main" style="margin-top:{{statusBar_height}}px;padding-top:460rpx">
+    <navigator url="../../pages/team_list/team_list" class="enter_item" open-type="navigate">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_myTeam.png" />
+      <view class="title">我的团队</view>
+      <view class="team_count">
+        <view class="num">{{team_count}}</view>
+        个
+      </view>
+    </navigator>
+    <!-- <navigator url="../../pages/distribution_share/distribution_share" class="enter_item" open-type="navigate">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_share.png" />
+      <view class="title">开始推广</view>
+    </navigator> -->
+    <view class="enter_item">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_share.png" />
+      <view class="title">开始推广</view>
+      <!-- 生成分享图 这里的操作是把canvas绘制的图预览出来 -->
+      <button class='share' type='primary' bindtap='share'></button>
+    </view>
+  </view>
+</view>
+<!-- 提现弹窗 -->
+<view class="payTips_pop_wrap" wx:if="{{show_pop}}">
+  <view class="payTips_pop">
+    <view class="box">
+      <view class="title">提现</view>
+      <view class="cash_withdrawal_main">
+        <view class="amount_wrap">
+          <view class="tle">金额(元)</view>
+          <view class="amount">全部余额：{{amount}}元</view>
+        </view>
+        <input class='use_money' type="digit" name="use_money" data-name="use_money" placeholder="请输入金额，满100可提现" placeholder-class="input-placeholder" bindinput="bindInput_money" value="{{input_money!=0||input_money!=0.00?input_money:''}}" />
+      </view>
+      <button class="btn_caps sure" loading="{{loading}}" disabled="{{btn_disabled}}" bindtap="cash_withdrawal_submit">
+        提交申请
+      </button>
+    </view>
+    <!-- 关闭按钮 -->
+    <view bindtap="show_pop">
+      <image class="btn_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+    </view>
+  </view>
+</view>
+<!-- canvas.wxml -->
+<!-- 画布大小按需定制 这里我按照背景图的尺寸定的 -->
+<canvas canvas-id="shareImg" style="width:{{windowW}}px;height:{{windowH}}px;"></canvas>
+<!-- 预览分享图 这里就是上图展示的效果 -->
+<!-- 刚开始是隐藏的 生成分享图之后显示, 用一个布尔变量来控制 这里的样式大家看图就写出来了 -->
+<view hidden='{{hidden}}' class='preview' style="top:{{statusBar_height}}px">
+  <image src='{{prurl}}' data-src="{{prurl}}" bindtap="previewImage" mode="aspectFill" style="width:{{windowW}}px;height:{{windowH}}px"></image>
+  <button class="btn" type='primary' size='mini' bindtap='save'>保存分享图</button>
+  <image bindtap="preview_close" class="icon_close" mode="aspectFill" src="../../assets/images/icon_close-big.png" />
+</view>

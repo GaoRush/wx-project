@@ -1,0 +1,216 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.5.1",
+	"appid": "wxe4a802a5abd47ce7",
+	"projectname": "miniprogram",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "0 授权登录页面 login",
+					"pathName": "pages/login/login",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "01 首页 index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "02 分类  category_list",
+					"pathName": "pages/category_list/category_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "03 产品列表 goods_list",
+					"pathName": "pages/goods_list/goods_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "04 产品详情 goods_detail",
+					"pathName": "pages/goods_detail/goods_detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "05 团购列表 group_buying_list",
+					"pathName": "pages/group_buying_list/group_buying_list",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "07 购物车 shopCart_list",
+					"pathName": "pages/shopCart_list/shopCart_list",
+					"query": "goodsId=9",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "08 订单确认 order_submit",
+					"pathName": "pages/order_submit/order_submit",
+					"query": "id_list=122",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "09 优惠券 coupon_list",
+					"pathName": "pages/coupon_list/coupon_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "10 会员中心 mine",
+					"pathName": "pages/mine/mine",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "10.1 会员中心_我的资料",
+					"pathName": "pages/mine_info/mine_info",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "11 我的订单 user_order_list",
+					"pathName": "pages/user_order_list/user_order_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 13,
+					"name": "12 订单详情 user_order_details",
+					"pathName": "pages/user_order_details/user_order_details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "13 我的分销 distribution_core",
+					"pathName": "pages/distribution_core/distribution_core",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "13.3 我的团队 team_list",
+					"pathName": "pages/team_list/team_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "13.5 分销规则 help_list",
+					"pathName": "pages/help_list/help_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "13.6 分销规则 - 详情 help_detail",
+					"pathName": "pages/help_detail/help_detail",
+					"query": "rule_id=1",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "13.7 钱包记录 user_amount_log",
+					"pathName": "pages/user_amount_log/user_amount_log",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 19,
+					"name": "14 地址管理  address_list",
+					"pathName": "pages/address_list/address_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 20,
+					"name": "14.2 新增地址  address_details",
+					"pathName": "pages/address_details/address_details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 21,
+					"name": "15 我的收藏 collect_list",
+					"pathName": "pages/collect_list/collect_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 22,
+					"name": "16 消息中心 user_message_list",
+					"pathName": "pages/user_message_list/user_message_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 23,
+					"name": "17 客服服务 custom_service",
+					"pathName": "pages/custom_service/custom_service",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 23,
+					"name": "18 开始推广 distribution_share",
+					"pathName": "pages/distribution_share/distribution_share",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

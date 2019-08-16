@@ -1,0 +1,59 @@
+<!-- components/c-addCart/c-addCart.wxml -->
+<view class="wrap" wx:if="{{showCart}}" catchtouchmove='{{true}}'>
+  <view class="addCart_box">
+    <!-- 产品 -->
+    <view class="prd_item cell_wrap">
+      <view class="cell_hd">
+        <image class="prd_img" mode="aspectFill" src="{{url+(goods_obj.img_url?goods_obj.img_url:'')}}" />
+      </view>
+      <view class="cell_bd">
+        <view class="prd_price" wx:if="{{!isGroupBuying}}">{{goods_obj.sell_price}}</view>
+        <view wx:else class="prd_price_wrap">
+          当前团价：
+          <view class="prd_price">{{goods_obj.sell_price}}</view>
+          <view class="wFull">(以最终团购结束价格为准)</view>
+        </view>
+        <view class="prd_name">{{goods_obj.title}}</view>
+      </view>
+      <view class="cell_ft">
+        <image class="icon  btn_close" mode="aspectFill" src="../../assets/images/icon_close.png" bindtap="showCart" />
+      </view>
+    </view>
+    <!-- 加减数字 -->
+    <view class="acount_box  cell_wrap">
+      <view class="cell_hd">数量</view>
+      <view class="cell_bd">
+        <view class="acount ">
+          <!-- 减号 -->
+          <view class="unit {{minusStatus}}" bindtap="bindMinus">-</view>
+          <!-- 数值 -->
+          <input class="input-text" type="number" bindchange="bindInput" value="{{num}}" />
+          <!-- 加号 -->
+          <view class="unit normal" bindtap="bindPlus">+</view>
+        </view>
+      </view>
+    </view>
+    <!-- 购物车底部导航 -->
+    <view class="bottom_tabBar  {{isGroupBuying?'gb':''}}">
+      <view class="cell br">
+        <navigator url='../../pages/index/index' open-type="redirect" class="item">
+          <image src='../../assets/images/icon_home.png' mode='aspectFit' class='icon'></image>
+          <text class="tle">首页</text>
+        </navigator>
+        <navigator url='../../pages/shopCart_list/shopCart_list?back=true' open-type="navigate" class="item {{newCart?'unRead':''}} ">
+          <image src='../../assets/images/icon_myCart.png' mode='aspectFit' class='icon'></image>
+          <text class="tle">购物车</text>
+        </navigator>
+      </view>
+      <block wx:if="{{showSure}}">
+        <view class="cell btn sure" bindtap="{{bind_click}}">确定</view>
+      </block>
+      <block wx:else>
+        <view class="cell btn addCart" bindtap="submitToCart" wx:if="{{!isGroupBuying}}">
+          加入购物车
+        </view>
+        <view class="cell btn buy" bindtap="cart_submit_pre">立即购买</view>
+      </block>
+    </view>
+  </view>
+</view>

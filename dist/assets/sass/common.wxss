@@ -1,0 +1,322 @@
+@charset "UTF-8";
+/********************************************* 重复使用的样式*********************************************/
+/********************************************* 自定义常用样式*********************************************/
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tc {
+  text-align: center;
+}
+
+.tr {
+  text-align: right;
+}
+
+.vt {
+  vertical-align: top;
+}
+
+.vm {
+  vertical-align: middle;
+}
+
+.vb {
+  vertical-align: bottom;
+}
+
+.c000 {
+  color: #000 !important;
+}
+
+.c333 {
+  color: #333 !important;
+}
+
+.c666 {
+  color: #666 !important;
+}
+
+.c999 {
+  color: #999 !important;
+}
+
+.ti2em {
+  text-indent: 2em !important;
+}
+
+.fb {
+  font-weight: bold;
+}
+
+.lh18 {
+  line-height: 1.8;
+}
+
+.lh20 {
+  line-height: 2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img.imgm {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/*!清除浮动*/
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+/*! = flex：定义布局为盒模型 flex-v：盒模型垂直布局 flex-1：子元素占据剩余的空间 flex-align-center：子元素垂直居中 flex-pack-center：子元素水平居中 flex-pack-justify：子元素两端对齐 兼容性：ios 4+、android 2.3+、winphone8+ = */
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -moz-box;
+  display: flex;
+}
+
+.flex-v {
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-w {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.flex-align-center {
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  align-items: center;
+  -ms-flex-align: center;
+}
+
+.flex-pack-center {
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.flex-pack-justify {
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+/*!模拟表格布局*/
+.table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.table-cell.vt {
+  vertical-align: top;
+}
+
+.table-cell.vb {
+  vertical-align: bottom;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.icon.mid {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.icon.big {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.icon img {
+  width: 100%;
+  vertical-align: top;
+}
+
+.line {
+  height: 0;
+  border: 0;
+  border-top: 1 rpx solid #ddd;
+}
+
+.line.dashed {
+  border-style: dashed;
+}
+
+.wHalf {
+  width: 50%;
+}
+
+.wFull {
+  width: 100%;
+}
+
+.box {
+  padding: 20 rpx;
+  background-color: #fff;
+}
+
+.db {
+  display: block;
+}
+
+.dib {
+  display: inline-block;
+}
+
+.dg {
+  display: -ms-grid;
+  display: grid;
+}
+
+.dig {
+  display: -ms-inline-grid;
+  display: inline-grid;
+}
+
+.prc {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pr {
+  position: relative;
+}
+
+.iconfont {
+  overflow: hidden;
+  vertical-align: middle;
+  font-size: 16 rpx;
+  fill: currentColor;
+}
+
+.bgfff {
+  background-color: #fff;
+}
+
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+/*输入框默认样式*/
+input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+input:-moz-placeholder {
+  color: #aaa;
+}
+
+input::-moz-placeholder {
+  color: #aaa;
+}
+
+input:-ms-input-placeholder {
+  color: #aaa;
+}
+
+.ell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+page {
+  background-color: #fff;
+  color: #666;
+  font-size: 26rpx;
+  font-family: "Microsoft YaHei UI", Arial, "Times New Roman";
+  box-sizing: border-box;
+}
+
+.cell_wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cell_bd {
+  min-width: 0;
+  flex: 1;
+}
+
+.flex-m {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

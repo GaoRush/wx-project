@@ -1,0 +1,173 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar id="statusBar" sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- // tab选项卡 -->
+<view class='tab_container'>
+  <!-- Tab布局 -->
+  <view class="hd swiper-tab" style="top:{{statusBar_height}}px">
+    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">
+      全部
+    </view>
+    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">
+      待付款
+    </view>
+    <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">
+      待发货
+    </view>
+    <view class="swiper-tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="clickTab">
+      待收货
+    </view>
+    <view class="swiper-tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="clickTab">
+      已完成
+    </view>
+  </view>
+  <!-- 内容布局 -->
+  <view class="bd" style="margin-top: 80rpx;">
+    <!-- 全部 -->
+    <view class="order_all {{currentTab?'show':'hide'}} {{isGroupBuying?'gb':''}}">
+      <scroll-view>
+        <block wx:if="{{total_count>0}}">
+          <view class="user_order_list" wx:for="{{user_order_list}}" wx:key="item.add_time">
+            <view class="user_order_item">
+              <!-- 订单状态 -->
+              <view class="hd status">
+                <view class="date">{{item.add_time}}</view>
+                <view class="payment_status ">
+                  <block wx:if="{{item.status==1||item.status==2}}">
+                    <view class="active">{{item.status_str}}</view>
+                  </block>
+                  <block wx:else>{{item.status_str}}</block>
+                  <!-- <text wx:if="{{item.payment_status==0}}">线下未支付</text>
+                  <text wx:elif="{{item.payment_status==1}}">待支付</text>
+                  <text wx:elif="{{item.payment_status==2}}">已支付</text> -->
+                </view>
+              </view>
+              <!-- 订单商品列表 -->
+              <navigator url="{{'../../pages/user_order_details/user_order_details?order_no='+item.order_no + '&isGroupBuying='+isGroupBuying}}" class="bd order_item cell_wrap" wx:for="{{item.order_goods}}" wx:for-item="goods_item" wx:key="goods_item.id">
+                <view class="cell_hd">
+                  <image class="prd_img" mode="aspectFill" src="{{url+goods_item.img_url}}" />
+                </view>
+                <view class="cell_bd">
+                  <view class="col">
+                    <view class="prd_name">{{goods_item.title}}</view>
+                    <block wx:if="{{isGroupBuying}}">
+                      <view class="gb_price_wrap">
+                        <!-- 下单时团购价 -->
+                        <view class="prd_price gb_price">{{goods_item.goods_price}}</view>
+                        <!-- 原价 -->
+                        <view class="prd_price">{{goods_item.sell_price}}</view>
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <!-- 原价 -->
+                      <view class="prd_price">{{goods_item.sell_price}}</view>
+                    </block>
+                  </view>
+                </view>
+                <view class="cell_ft">
+                  <view class="prd_num">x {{goods_item.quantity}}</view>
+                </view>
+              </navigator>
+              <view class="order_price flex_box_sb">
+                <!-- 团购：参团人数 -->
+                <view class="group_buying_count mr100" wx:if="{{isGroupBuying}}">
+                  参团人数：{{item.group_buying_count}}
+                </view>
+                <view class="order_goods_count">共{{item.order_goods_count}}件商品</view>
+                <view class="order_amount">
+                  实付款：
+                  <view class="price prd_price">{{item.order_amount}}</view>
+                </view>
+              </view>
+              <!-- 团购最终价格 -->
+              <view class="final_price" wx:if="{{isGroupBuying}}">
+                <view class="order_amount final_amount">
+                  最终价格：
+                  <view class="price prd_price">{{item.final_amount}}</view>
+                </view>
+              </view>
+              <!-- 应退金额 -->
+              <view class="final_price" wx:if="{{isGroupBuying}}">
+                <view class="order_amount final_amount">
+                  应退金额：
+                  <view class="price prd_price">{{item.refund_amount}}</view>
+                </view>
+              </view>
+              <!-- 订单按钮 -->
+              <view class="ft order_pay" wx:if="{{item.status==1||(item.status==2&&item.express_status==2)}}">
+                <!-- 取消订单 -->
+                <block wx:if="{{item.status==1}}">
+                  <view class="btn_caps02 cancel" bindtap="edit_order_status" data-edit_type="order_cancel" data-idx="{{index}}">
+                    取消订单
+                  </view>
+                </block>
+                <!-- 确认收货 -->
+                <block wx:if="{{item.express_status==2}}">
+                  <view class="btn_caps02" bindtap="edit_order_status" data-edit_type="order_complete" data-idx="{{index}}">
+                    确认收货
+                  </view>
+                </block>
+                <!-- 线上支付状态 -->
+                <block wx:if="{{item.payment_status==1}}">
+                  <navigator class="btn_caps02" url="{{'../../pages/user_order_details/user_order_details?order_no='+item.order_no + '&isGroupBuying='+isGroupBuying}}">
+                    立刻支付
+                  </navigator>
+                </block>
+                <!-- <block wx:elif="{{item.payment_status==2}}">
+                  <view class="btn_caps02  cancel">已支付</view>
+                </block> -->
+                <!-- 线下支付状态 -->
+                <!-- <block wx:if="{{item.payment_status==0}}">
+                  <view class="btn_caps02 ">线下未支付</view>
+                </block> -->
+              </view>
+              <!-- 完成团购，退回差价 -->
+              <view class="ft order_pay" wx:if="{{item.status==3&&item.payment_status==2}}">
+                <!-- 取消订单，已经支付的状态下才回显示退款状态 -->
+                <!-- 退款状态 -->
+                <block wx:if="{{item.refund_status==0}}">
+                  <view class="btn_caps02 ">未退款</view>
+                </block>
+                <block wx:elif="{{item.refund_status==1}}">
+                  <view class="btn_caps02 ">待退款</view>
+                </block>
+                <block wx:elif="{{item.refund_status==2}}">
+                  <view class="btn_caps02  cancel">已退款</view>
+                </block>
+              </view>
+              <view class="ft order_pay " wx:if="{{item.group_buying_status&&item.group_buying_status!=''}}">
+                <view class="btn_caps02  cancel  group_buying_status">
+                  {{item.group_buying_status}}
+                </view>
+              </view>
+              <!-- 订单按钮 -->
+              <view class="ft order_pay mt20" wx:if="{{item.status==3||item.status==4}}">
+                <!-- 删除订单 -->
+                <block wx:if="{{item.status==3||item.status==4}}">
+                  <view class="btn_caps02 cancel" bindtap="order_delete" data-edit_type="order_delete" data-idx="{{index}}">
+                    删除订单
+                  </view>
+                </block>
+              </view>
+              <!-- 团购:订单按钮 -->
+              <!-- <block wx:if="{{isGroupBuying}}">
+
+              </block>
+              <block wx:else>
+
+              </block> -->
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="noData_tips">- 暂无数据 -</view>
+        </block>
+      </scroll-view>
+    </view>
+    <!-- 待付款 -->
+    <!-- 待发货 -->
+    <!-- 待收货 -->
+    <!-- 已完成 -->
+  </view>
+</view>
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<c-tabBar currentTab="-1" />

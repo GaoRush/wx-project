@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/goods_list/goods_list",
+    "pages/goods_detail/goods_detail",
+    "pages/group_buying_list/group_buying_list",
+    "pages/category_list/category_list",
+    "pages/shopCart_list/shopCart_list",
+    "pages/order_submit/order_submit",
+    "pages/mine/mine",
+    "pages/mine_info/mine_info",
+    "pages/address_list/address_list",
+    "pages/address_details/address_details",
+    "pages/coupon_list/coupon_list",
+    "pages/collect_list/collect_list",
+    "pages/user_order_list/user_order_list",
+    "pages/user_order_details/user_order_details",
+    "pages/user_amount_log/user_amount_log",
+    "pages/user_message_list/user_message_list",
+    "pages/distribution_core/distribution_core",
+    "pages/team_list/team_list",
+    "pages/help_list/help_list",
+    "pages/help_detail/help_detail",
+    "pages/custom_service/custom_service",
+    "pages/login/login",
+    "pages/distribution_share/distribution_share",
+    "pages/web_view/web_view"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "onReachBottomDistance": 50,
+    "enablePullDownRefresh": true
+  },
+  "networkTimeout": {
+    "request": 6000,
+    "connectSocket": 6000,
+    "uploadFile": 6000,
+    "downloadFile": 6000
+  },
+  "sitemapLocation": "sitemap.json"
+}

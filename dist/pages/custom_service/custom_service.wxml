@@ -1,0 +1,15 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" navToUrl="{{navToUrl}}" />
+<!-- 客服中心 -->
+<view class="rule_list">
+  <view class="rule_item">
+    <view class="title">在线咨询</view>
+    <view class="icon_arrow-right"></view>
+    <!-- <contact-button class="kf_btn" type="default-dark" size="200" session-from="weapp"></contact-button> -->
+    <button class="kf_btn" open-type="contact" bindcontact="handleContact"></button>
+  </view>
+  <view class="rule_item" bindtap="bindCall">
+    <text class="title">电话咨询</text>
+    <view class="icon_arrow-right"></view>
+  </view>
+</view>

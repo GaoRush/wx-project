@@ -1,0 +1,27 @@
+page {
+  background-color: #ededed;
+  padding-bottom: 100rpx;
+}
+
+.user_message_list .message_item {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.user_message_list .message_item .hd {
+  font-size: 24rpx;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user_message_list .message_item .bd {
+  padding: 20rpx 0;
+  padding-bottom: 0;
+}

@@ -1,0 +1,18 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 我的团队 -->
+<view class="team_list">
+  <block wx:if="{{total_count>0}}">
+    <block wx:for="{{team_list}}" wx:key="item.nick_name">
+      <view class="cell_wrap team_item">
+        <view class="cell_hd">
+          <image class="icon" mode="aspectFill" src="{{item.avatar?item.avatar:'../../assets/images/icon_user02.png'}}" />
+        </view>
+        <view class="cell_bd">
+          <text class="nick_name">{{item.nick_name}}</text>
+        </view>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据 -</view>
+</view>

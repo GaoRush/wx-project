@@ -1,0 +1,28 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 消息中心 -->
+<view class="user_message_list">
+  <block wx:if="{{total_count>0}}">
+    <block wx:for="{{user_message_list}}" wx:key="item.id" wx:for-index="index">
+      <view class="message_item">
+        <view class="hd ">
+          <text class="title">{{item.title}}</text>
+          <text class="add_time">{{item.post_time}}</text>
+        </view>
+        <view class="bd" wx:if="{{user_message_list}}">
+          <!-- 内容区 -->
+          <import src="../../assets/wxParse/wxParse.wxml" />
+          <!-- <view class='wxParseArticle'>
+            <template is="wxParse" data="{{wxParseData:article[index].nodes}}" />
+          </view> -->
+          <block wx:for="{{articleArray}}" wx:key="item" wx:for-index="idx">
+            <block wx:if="{{idx==index}}">
+              <template is="wxParse" data="{{wxParseData:item}}" />
+            </block>
+          </block>
+        </view>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 暂无数据~ -</view>
+</view>

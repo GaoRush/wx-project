@@ -1,0 +1,34 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{true}}" />
+<!-- 我的收藏列表 -->
+<view class="collect_list">
+  <block wx:if="{{total_count>0}}">
+    <block wx:for="{{collect_list}}" wx:key="item.id">
+      <view class="prd_item ">
+        <!-- 滑动区 -->
+        <movable-area class="slider_delete">
+          <movable-view out-of-bounds="true" direction="horizontal" x="{{item.xmove}}" data-prdindex="{{index}}" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindchange="handleMovableChange">
+            <navigator url="{{'../../pages/goods_detail/goods_detail?goodsId='+ item.goods_id + '&img_url='+item.img_url }}" class="cell_wrap">
+              <view class="cell_hd"></view>
+              <view class="cell_bd">
+                <image class="prd_img" mode="aspectFill" src="{{url+item.img_url}}" />
+                <view class="col">
+                  <view class="prd_name">{{item.title}}</view>
+                  <view class="row">
+                    <view class="prd_price">{{item.sell_price}}</view>
+                  </view>
+                </view>
+              </view>
+              <view class="cell_ft"></view>
+            </navigator>
+          </movable-view>
+        </movable-area>
+        <!-- 删除按钮 -->
+        <view class="btn_delete" data-id="{{item.goods_id}}" data-prdindex="{{index}}" bindtap="handleSlideDelete">
+          删除
+        </view>
+      </view>
+    </block>
+  </block>
+  <view wx:else class="noData_tips">- 还没有任何收藏~ -</view>
+</view>

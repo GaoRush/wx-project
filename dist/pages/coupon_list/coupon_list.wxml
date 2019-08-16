@@ -1,0 +1,108 @@
+<!-- 自定义导航栏 (isTransparent控制背景透明,isBack控制返回页面按钮) -->
+<c-statusBar sty='{{statusBar.sty}}' title='{{statusBar.title}}' isTransparent="{{false}}" isBack="{{false}}" />
+<!-- // tab选项卡 -->
+<view class='tab_container'>
+  <!-- Tab布局 -->
+  <view class="hd swiper-tab">
+    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">
+      可使用
+    </view>
+    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">
+      已使用
+    </view>
+    <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">
+      已过期
+    </view>
+  </view>
+  <!-- 内容布局 -->
+  <view class="bd">
+    <navigator class="coupon_tips" url="{{'../../pages/help_detail/help_detail?rule_id='+3}}">
+      <image class="icon" mode="aspectFill" src="../../assets/images/icon_question.png" />
+      优惠券使用说明
+    </navigator>
+    <view class="use {{currentTab == 0 ? 'show':'hide'}}">
+      <scroll-view>
+        <block wx:if="{{total_count>0}}">
+          <view class="coupon_item" wx:for="{{coupon_list}}" wx:key="item.id">
+            <view class="hd">
+              <view class="col">
+                <view class="title">{{item.title}}</view>
+                <block wx:if="{{item.source_nick_name===null}}">
+                  <view class="nick_name">（平台赠送）</view>
+                </block>
+                <block wx:else>
+                  <view class="nick_name">（{{item.source_nick_name}}赠送）</view>
+                </block>
+              </view>
+              <view class="col">
+                <view class="money prd_price">{{item.money}}</view>
+              </view>
+            </view>
+            <view class="bd">
+              <view class="date">有限期：{{item.start_time}} - {{item.end_time}}</view>
+              <view class="btn_wrap">
+                <button open-type="share" class="btn_coupon active" data-coupon_token="{{item.coupon_token}}" data-user_token="{{item.user_token}}">
+                  转赠
+                </button>
+                <navigator class="btn_coupon active" url="../../pages/category_list/category_list">
+                  使用
+                </navigator>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="noData_tips">- 暂无数据 -</view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class="used {{currentTab == 1 ? 'show':'hide'}}">
+      <scroll-view>
+        <block wx:if="{{total_count>0}}">
+          <view class="coupon_item" wx:for="{{coupon_list}}" wx:key="item.id">
+            <view class="hd">
+              <view class="col">
+                <view class="title">{{item.title}}</view>
+                <view class="nick_name">（{{item.nick_name?item.nick_name:'平台'}}赠送）</view>
+              </view>
+              <view class="col">
+                <view class="money prd_price">{{item.money}}</view>
+              </view>
+            </view>
+            <view class="bd">
+              <view class="date">有限期：{{item.start_time}} - {{item.end_time}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="noData_tips">- 暂无数据 -</view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class="overTime {{currentTab == 2 ? 'show':'hide'}}">
+      <scroll-view>
+        <block wx:if="{{total_count>0}}">
+          <view class="coupon_item" wx:for="{{coupon_list}}" wx:key="item.id">
+            <view class="hd">
+              <view class="col">
+                <view class="title">{{item.title}}</view>
+                <view class="nick_name">（{{item.nick_name?item.nick_name:'平台'}}赠送）</view>
+              </view>
+              <view class="col">
+                <view class="money prd_price">{{item.money}}</view>
+              </view>
+            </view>
+            <view class="bd">
+              <view class="date">有限期：{{item.start_time}} - {{item.end_time}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="noData_tips">- 暂无数据 -</view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+<!-- 自定义tabBar (currentTab显示的序号) -->
+<c-tabBar currentTab="2" />

@@ -1,0 +1,296 @@
+@charset "UTF-8";
+.cell_wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cell_bd {
+  min-width: 0;
+  flex: 1;
+  padding: 0 30rpx;
+}
+
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+}
+
+.addCart_box {
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.addCart_box .btn_close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+}
+
+.prd_item {
+  width: 100%;
+  height: auto;
+  padding: 40rpx 30rpx;
+  float: none;
+  position: relative;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+}
+
+.prd_item .prd_img {
+  width: 130rpx;
+  height: 130rpx;
+  border: 1px solid #dbdbdb;
+}
+
+.prd_item .prd_name {
+  width: 100%;
+  font-size: 32rpx;
+  white-space: inherit;
+  line-height: 1.5;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  -o-text-overflow: ellipsis;
+  margin-top: 0;
+  color: #333;
+}
+
+.prd_item .prd_price {
+  color: #ffb400;
+  width: 100%;
+  font-size: 32rpx;
+  font-weight: normal;
+  display: flex;
+  align-items: flex-end;
+  line-height: 1;
+  padding-bottom: 10rpx;
+}
+
+.prd_item .prd_price::before {
+  content: '￥';
+  font-weight: normal;
+  vertical-align: middle;
+  color: #ffb400;
+  font-size: 30rpx;
+  display: flex;
+}
+
+.acount_box {
+  padding: 30rpx;
+}
+
+.acount_box .cell_bd {
+  padding-right: 0;
+}
+
+.acount {
+  display: block;
+  width: 180rpx;
+  position: relative;
+  height: 48rpx;
+  line-height: 48rpx;
+  overflow: hidden;
+  float: right;
+}
+
+.acount .unit {
+  display: block;
+  background-color: #fff;
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #999;
+  border: 1px solid #999;
+  padding: 0;
+  z-index: 1;
+  margin: 0;
+  float: left;
+}
+
+.acount .unit.normal {
+  color: #999;
+}
+
+.acount .unit.disabled {
+  color: #dbdbdb !important;
+  background-color: #fff !important;
+  border-color: #dbdbdb;
+}
+
+.acount .unit.minus {
+  border-right-color: transparent;
+}
+
+.acount .unit.plus {
+  border-left-color: transparent;
+}
+
+.acount .input-text {
+  display: block;
+  width: 84rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  border: 1px solid #999;
+  padding: 0;
+  min-height: auto;
+  text-align: center;
+  font-size: 26rpx;
+  color: #333;
+  z-index: 2;
+  overflow: hidden;
+  float: left;
+  margin: 0 -1px;
+}
+
+.btn {
+  width: 100%;
+  background-color: #4864ff;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  height: 105rpx;
+  line-height: 105rpx;
+  min-height: auto;
+}
+
+.bottom_tabBar {
+  font-size: 30rpx;
+  width: 100%;
+  height: 110rpx;
+  background-color: #fff;
+  z-index: 9999;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10rpx #c4c5c6;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+.bottom_tabBar.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bottom_tabBar .cell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom_tabBar .cell.br {
+  border-right: 1px solid #ededed;
+}
+
+.bottom_tabBar .item {
+  display: inline-block;
+  padding: 10rpx 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.bottom_tabBar .item.unRead .icon {
+  position: relative;
+  overflow: auto;
+  padding-right: 20rpx;
+  margin-right: -15rpx;
+}
+
+.bottom_tabBar .item.unRead .icon:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -5rpx;
+  display: inline-block;
+  width: 15rpx;
+  height: 15rpx;
+  background-color: #ffb400;
+  border: 6rpx solid #fff;
+  border-radius: 50%;
+  z-index: 999;
+}
+
+.bottom_tabBar .item .icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.bottom_tabBar .item .tle {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.bottom_tabBar .btn {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #4864ff;
+  font-size: 30rpx;
+}
+
+.bottom_tabBar .btn.buy {
+  color: #fff;
+  background-color: #4864ff;
+}
+
+.bottom_tabBar .btn.sure {
+  width: 200%;
+  color: #fff;
+  background-color: #4864ff;
+}
+
+.bottom_tabBar.gb {
+  flex-direction: row;
+}
+
+.bottom_tabBar.gb .cell {
+  width: 33.3%;
+}
+
+.bottom_tabBar.gb .cell.btn {
+  width: 66.6%;
+}
+
+.prd_price_wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  line-height: 1;
+  margin-bottom: 10rpx;
+  flex-wrap: wrap;
+}
+
+.prd_price_wrap .prd_price {
+  width: auto;
+  padding-bottom: 0;
+}
+
+.wFull {
+  width: 100%;
+}
