@@ -6,7 +6,7 @@ const config = {
   uploadUrl: url + '/api/weixin/upload_ajax.ashx',
   // imgUrl: './images/',
   // getUrl: url + '/data/get/getData.ashx',
-  postUrl: url + '/api/weixin/wx.ashx?action=',
+  apiUrl: url + '/api/weixin/wx.ashx?action=',
 
 };
 

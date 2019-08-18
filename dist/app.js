@@ -2,17 +2,13 @@
 //app.js
 
 App({
-  onLaunch: function onLaunch() {
-    console.log('app-onLaunch');
-  },
-  onShow: function onShow() {
-    console.log('app-onShow');
-  },
+  onLaunch: function onLaunch() {},
+  onShow: function onShow() {},
 
   // 全局变量
   globalData: {
     userInfo: '',
-    sKey: '',
+    session_key: '',
     isLogin: ''
   }
 });

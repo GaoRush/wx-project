@@ -1,19 +1,25 @@
-/**
- * html2Json 改造来自: https://github.com/Jxck/html2json
- * 
- * 
- * author: Di (微信小程序开发工程师)
- * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
- *               垂直微信小程序开发交流社区
- * 
- * github地址: https://github.com/icindy/wxParse
- * 
- * for: 微信小程序富文本解析
- * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
- */
-import config from '../js/config'
+'use strict';
 
-var __placeImgeUrlHttps = "https";
+var _config = require('../js/config');
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __placeImgeUrlHttps = "https"; /**
+                                    * html2Json 改造来自: https://github.com/Jxck/html2json
+                                    * 
+                                    * 
+                                    * author: Di (微信小程序开发工程师)
+                                    * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
+                                    *               垂直微信小程序开发交流社区
+                                    * 
+                                    * github地址: https://github.com/icindy/wxParse
+                                    * 
+                                    * for: 微信小程序富文本解析
+                                    * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
+                                    */
+
 var __emojisReg = '';
 var __emojisBaseSrc = '';
 var __emojis = {};
@@ -40,9 +46,9 @@ var special = makeMap("wxxxcode-style,script,style,view,scroll-view,block");
 function makeMap(str) {
     var obj = {},
         items = str.split(",");
-    for (var i = 0; i < items.length; i++)
+    for (var i = 0; i < items.length; i++) {
         obj[items[i]] = true;
-    return obj;
+    }return obj;
 }
 
 function q(v) {
@@ -50,20 +56,12 @@ function q(v) {
 }
 
 function removeDOCTYPE(html) {
-    return html
-        .replace(/<\?xml.*\?>\n/, '')
-        .replace(/<.*!doctype.*\>\n/, '')
-        .replace(/<.*!DOCTYPE.*\>\n/, '');
+    return html.replace(/<\?xml.*\?>\n/, '').replace(/<.*!doctype.*\>\n/, '').replace(/<.*!DOCTYPE.*\>\n/, '');
 }
 
 function trimHtml(html) {
-    return html
-        .replace(/\r?\n+/g, '')
-        .replace(/<!--.*?-->/ig, '')
-        .replace(/\/\*.*?\*\//ig, '')
-        .replace(/[ ]+</ig, '<')
+    return html.replace(/\r?\n+/g, '').replace(/<!--.*?-->/ig, '').replace(/\/\*.*?\*\//ig, '').replace(/[ ]+</ig, '<');
 }
-
 
 function html2json(html, bindName) {
     //处理字符串
@@ -80,23 +78,23 @@ function html2json(html, bindName) {
     };
     var index = 0;
     HTMLParser(html, {
-        start: function(tag, attrs, unary) {
+        start: function start(tag, attrs, unary) {
             //debug(tag, attrs, unary);
             // node for this element
             var node = {
                 node: 'element',
-                tag: tag,
+                tag: tag
             };
 
             if (bufArray.length === 0) {
-                node.index = index.toString()
-                index += 1
+                node.index = index.toString();
+                index += 1;
             } else {
                 var parent = bufArray[0];
                 if (parent.nodes === undefined) {
                     parent.nodes = [];
                 }
-                node.index = parent.index + '.' + parent.nodes.length
+                node.index = parent.index + '.' + parent.nodes.length;
             }
 
             if (block[tag]) {
@@ -108,7 +106,7 @@ function html2json(html, bindName) {
             }
 
             if (attrs.length !== 0) {
-                node.attr = attrs.reduce(function(pre, attr) {
+                node.attr = attrs.reduce(function (pre, attr) {
                     var name = attr.name;
                     var value = attr.value;
                     if (name == 'class') {
@@ -126,7 +124,6 @@ function html2json(html, bindName) {
                     if (value.match(/ /)) {
                         value = value.split(' ');
                     }
-
 
                     // if attr already exists
                     // merge it
@@ -150,7 +147,7 @@ function html2json(html, bindName) {
             //对img添加额外数据
             if (node.tag === 'img') {
                 node.imgIndex = results.images.length;
-                var imgUrl = config.url + node.attr.src;
+                var imgUrl = _config2.default.url + node.attr.src;
                 if (imgUrl[0] == '') {
                     imgUrl.splice(0, 1);
                 }
@@ -199,7 +196,7 @@ function html2json(html, bindName) {
                 bufArray.unshift(node);
             }
         },
-        end: function(tag) {
+        end: function end(tag) {
             //debug(tag);
             // merge into parent tag
             var node = bufArray.shift();
@@ -221,7 +218,7 @@ function html2json(html, bindName) {
                 parent.nodes.push(node);
             }
         },
-        chars: function(text) {
+        chars: function chars(text) {
             //debug(text);
             var node = {
                 node: 'text',
@@ -230,19 +227,19 @@ function html2json(html, bindName) {
             };
 
             if (bufArray.length === 0) {
-                node.index = index.toString()
-                index += 1
+                node.index = index.toString();
+                index += 1;
                 results.nodes.push(node);
             } else {
                 var parent = bufArray[0];
                 if (parent.nodes === undefined) {
                     parent.nodes = [];
                 }
-                node.index = parent.index + '.' + parent.nodes.length
+                node.index = parent.index + '.' + parent.nodes.length;
                 parent.nodes.push(node);
             }
         },
-        comment: function(text) {
+        comment: function comment(text) {
             //debug(text);
             // var node = {
             //     node: 'comment',
@@ -253,7 +250,7 @@ function html2json(html, bindName) {
             //     parent.nodes = [];
             // }
             // parent.nodes.push(node);
-        },
+        }
     });
     return results;
 };
@@ -265,14 +262,14 @@ function transEmojiStr(str) {
     var emojiObjs = [];
     //如果正则表达式为空
     if (__emojisReg.length == 0 || !__emojis) {
-        var emojiObj = {}
+        var emojiObj = {};
         emojiObj.node = "text";
         emojiObj.text = str;
         array = [emojiObj];
         return array;
     }
     //这个地方需要调整
-    str = str.replace(/\[([^\[\]]+)\]/g, ':$1:')
+    str = str.replace(/\[([^\[\]]+)\]/g, ':$1:');
     var eReg = new RegExp("[:]");
     var array = str.split(eReg);
     for (var i = 0; i < array.length; i++) {
@@ -293,7 +290,11 @@ function transEmojiStr(str) {
     return emojiObjs;
 }
 
-function emojisInit(reg = '', baseSrc = "/wxParse/emojis/", emojis) {
+function emojisInit() {
+    var reg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var baseSrc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "/wxParse/emojis/";
+    var emojis = arguments[2];
+
     __emojisReg = reg;
     __emojisBaseSrc = baseSrc;
     __emojis = emojis;

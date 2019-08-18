@@ -30,12 +30,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad(options) {
-    console.log('mine-onLoad');
-    var that = this;
-    // 获取自定义导航的整体高度
-    that.setData({
-      statusBar_height: that.selectComponent('#statusBar')
-    });
+    // let that = this
+    // // 获取自定义导航的整体高度
+    // that.setData({
+    //   statusBar_height: that.selectComponent('#statusBar')
+    // })
   },
 
   /**
@@ -48,32 +47,38 @@ Page({
    */
   onShow: function onShow() {
     var that = this;
-    var userInfo = wx.getStorageSync('s_userInfo');
-    var isLogin = wx.getStorageSync('s_isLogin');
-    var sKey = wx.getStorageSync('s_sKey');
+    // let userInfo = wx.getStorageSync('s_userInfo')
+    // let isLogin = wx.getStorageSync('s_isLogin')
+    // let sKey = wx.getStorageSync('s_sKey')
     // console.log('每次打开页面检查是否登录', that.data)
 
     // 先判断是否存在用户信息
-    if (JSON.stringify(userInfo) != '' && isLogin && sKey) {
-      //有用户信息，直接执行下面的数据请求
-      // console.log('有用户信息，直接执行下面的数据请求')
+    // if (JSON.stringify(userInfo) != '' && isLogin && sKey) {
+    //   //有用户信息，直接执行下面的数据请求
+    //   // console.log('有用户信息，直接执行下面的数据请求')
 
-      // ....
-      that.setData({
-        userInfo: userInfo,
-        isLogin: isLogin,
-        userInfo_str: JSON.stringify(userInfo)
-      });
+    //   // ....
+    //   that.setData({
+    //     userInfo: userInfo,
+    //     isLogin: isLogin,
+    //     userInfo_str: JSON.stringify(userInfo)
+    //   })
 
-      // 用户中心
-      that.user_center();
-    } else {
-      // 没有用户信息，先获取用户信息
-      // console.log('没有用户信息，先获取用户信息')
+    //   // 用户中心
+    //   that.user_center()
+    // } else {
+    //   // 没有用户信息，先获取用户信息
+    //   // console.log('没有用户信息，先获取用户信息')
 
-      // 更新用户信息
-      that.update_userInfo();
-    }
+    //   // 更新用户信息
+    //   // that.update_userInfo()
+
+    //   // 用户中心
+    //   that.user_center()
+    // }
+
+    that.update_userInfo();
+    that.user_center();
   },
 
   /**
@@ -191,19 +196,23 @@ Page({
     // }).catch(err => {
     //   common.alert(err)
     // });
-
-    http.fly.get('' + config.postUrl + 'user_center').then(function (res) {
+    var data = {
+      op: 2
+    };
+    http.fly_key.get('' + config.apiUrl + 'user_center', data).then(function (res) {
       console.log('用户中心', res);
-      that.setData({
-        order: res.data.order,
-        group_buying_order: res.data.group_buying_order,
-        unread_message: res.data.unread_message
-      });
+      if (res && res.length > 0) {
+        that.setData({
+          order: res.order,
+          group_buying_order: res.group_buying_order,
+          unread_message: res.unread_message
+        });
+      }
       console.log('that.data', that.data);
     }).catch(function (err) {
-      common.alert(err);
+      console.log(err);
     });
-  }
+  },
   // 获取手机号
   // getPhoneNumber: function (e) {
   //   let that = this
@@ -226,32 +235,53 @@ Page({
   //   });
   // },
   // // 更新用户信息
-  // update_userInfo: function () {
-  //   let that = this
-  //   login.update_getUserInfo().then((res02) => {
-  //     console.log('返回的用户信息', res02)
-  //     if (res02) {
-  //       // common.alert('登录成功！', 'sucess')
+  update_userInfo: function update_userInfo() {
+    var that = this;
+    // login.update_getUserInfo().then((res02) => {
+    //   console.log('返回的用户信息', res02)
+    //   if (res02) {
+    //     // common.alert('登录成功！', 'sucess')
 
-  //       that.setData({
-  //         userInfo: res02.data,
-  //         isLogin: true,
-  //         userInfo_str: JSON.stringify(res02.data)
-  //       })
-  //       // 缓存更新用户信息
-  //       wx.setStorageSync('s_userInfo', res02.data)
-  //       wx.setStorageSync('s_isLogin', true)
+    //     that.setData({
+    //       userInfo: res02.data,
+    //       isLogin: true,
+    //       userInfo_str: JSON.stringify(res02.data)
+    //     })
+    //     // 缓存更新用户信息
+    //     wx.setStorageSync('s_userInfo', res02.data)
+    //     wx.setStorageSync('s_isLogin', true)
 
-  //       // 用户中心
-  //       that.user_center()
+    //     // 用户中心
+    //     that.user_center()
 
-  //     }
+    //   }
 
-  //   }).catch((err) => {
-  //     common.showErr(err)
-  //     // that.setData({
-  //     //   isLogin: false,
-  //     // })
-  //   });
-  // }
+    // }).catch((err) => {
+    //   common.showErr(err)
+    //   // that.setData({
+    //   //   isLogin: false,
+    //   // })
+    // });
+
+    var data = {};
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('get_user_info', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly.get('' + config.apiUrl + 'index').then(function (res) {
+      console.log('index', res.data);
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
 });

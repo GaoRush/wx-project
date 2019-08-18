@@ -1,17 +1,13 @@
 'use strict'
 //app.js
 App({
-  onLaunch: function () {
-    console.log('app-onLaunch')
-  },
-  onShow: function () {
-    console.log('app-onShow');
-  },
+  onLaunch: function () {},
+  onShow: function () {},
 
   // 全局变量
   globalData: {
     userInfo: '',
-    sKey: '',
+    session_key: '',
     isLogin: '',
   }
 })

@@ -1,5 +1,5 @@
 const config = require('./config.js') //引入配置文件
-const url = config.postUrl //请求地址
+const url = config.apiUrl //请求地址
 
 // 获取session_key
 function getSKey() {
@@ -20,13 +20,13 @@ function getSKey() {
               'content-type': 'application/json' // 默认值
             },
             success(res02) {
-              console.log("返回的res02", res02)
               resolve(res02)
             }
           })
 
         } else {
           // console.log('登录失败！' + res.errMsg)
+          reject(res)
         }
       }
     })
