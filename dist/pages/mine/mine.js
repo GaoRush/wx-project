@@ -197,10 +197,10 @@ Page({
     //   common.alert(err)
     // });
     var data = {
-      op: 2
+      op: "用户中心"
     };
     http.fly_key.get('' + config.apiUrl + 'user_center', data).then(function (res) {
-      console.log('用户中心', res);
+      console.log('用户中心res', res);
       if (res && res.length > 0) {
         that.setData({
           order: res.order,
@@ -263,9 +263,120 @@ Page({
     //   // })
     // });
 
-    var data = {};
+    var data = {
+      op: "用户信息"
+    };
     http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
-      console.log('get_user_info', res);
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
+      if (res) {
+        that.setData({
+          userInfo: res.data.data,
+          isLogin: true,
+          userInfo_str: JSON.stringify(res.data.data)
+        });
+      }
+      // console.log('that.data', that.data)
+    }).catch(function (err) {
+      console.log(err);
+    });
+    http.fly_key.get('' + config.apiUrl + 'get_user_info', data).then(function (res) {
+      console.log('用户信息res', res);
       if (res) {
         that.setData({
           userInfo: res.data.data,

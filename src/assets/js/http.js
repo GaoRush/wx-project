@@ -73,8 +73,16 @@ fly_key.interceptors.response.use(function (response) {
     // console.log("response", response);
     console.log(`2.response,发起请求：请求地址:${response.request.url},请求参数：`, response.request.body)
 
+    // 时间间隔， 防止多次重复请求登录态session_key
+    let currentTime = new Date().getTime()
+    let lastSendTime = wx.getStorageSync("lastSendTime") ? wx.getStorageSync("lastSendTime") : currentTime
+    let intervalTime = currentTime - lastSendTime
+    let timeout = 1000 //设置时间间距范围，超出该时间值则发起获取session_key请求
+    console.log("currentTime", currentTime, "lastSendTime", lastSendTime, "intervalTime", intervalTime);
+
     //验证失效
-    if (response.data.status === -1) {
+    if (response.data.status === -1 && (intervalTime > timeout || intervalTime === 0)) {
+
       console.log("3.response,session_key失效，重新获取,锁住请求");
 
       this.lock(); //锁定响应拦截器，
@@ -83,7 +91,8 @@ fly_key.interceptors.response.use(function (response) {
         console.log('4.response,成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
         wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
         wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
-
+        let lastSendTime = new Date().getTime()
+        wx.setStorageSync("lastSendTime", lastSendTime); //记录已经获得session_key的当前时间值
 
         // request.headers = { //设置请求头
         //   "content-type": "application/json",
@@ -98,13 +107,21 @@ fly_key.interceptors.response.use(function (response) {
 
         this.unlock() //解锁后，会继续发起请求队列中的任务
 
+        // 清空时间间隔
+        intervalTime = null
+
       }).then(() => {
 
         console.log(`5.response,解锁请求,继续之前的请求：请求地址:${response.request.url},请求参数：`, response.request.body)
         return fly_key.request(response.request); //继续之前的请求
 
       })
+    } else if (response.data.status === -1 && (intervalTime < timeout)) {
 
+      key = wx.getStorageSync("session_key") //再次获取最新的session_key
+      response.request.body.key = key
+      console.log(`5.response,已经更新了session_key，继续之前请求：请求地址:${response.request.url},请求参数：`, response.request.body)
+      return fly_key.request(response.request); //继续之前的请求
 
     } else {
       console.log("3.response,返回response", response);

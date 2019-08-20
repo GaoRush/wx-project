@@ -269,7 +269,7 @@ gulp.task(
 
 // js
 gulp.task(
-  'js',
+  'dev_js',
   gulp.series(gulp.parallel('js'), 'watch_js'),
 )
 

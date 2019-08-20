@@ -73,8 +73,16 @@ fly_key.interceptors.response.use(function (response) {
   // console.log("response", response);
   console.log("2.response,\u53D1\u8D77\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
 
+  // 时间间隔， 防止多次重复请求登录态session_key
+  var currentTime = new Date().getTime();
+  var lastSendTime = wx.getStorageSync("lastSendTime") ? wx.getStorageSync("lastSendTime") : currentTime;
+  var intervalTime = currentTime - lastSendTime;
+  var timeout = 1000; //设置时间间距范围，超出该时间值则发起获取session_key请求
+  console.log("currentTime", currentTime, "lastSendTime", lastSendTime, "intervalTime", intervalTime);
+
   //验证失效
-  if (response.data.status === -1) {
+  if (response.data.status === -1 && (intervalTime > timeout || intervalTime === 0)) {
+
     console.log("3.response,session_key失效，重新获取,锁住请求");
 
     this.lock(); //锁定响应拦截器，
@@ -83,7 +91,8 @@ fly_key.interceptors.response.use(function (response) {
       console.log('4.response,成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
       wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
       wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
-
+      var lastSendTime = new Date().getTime();
+      wx.setStorageSync("lastSendTime", lastSendTime); //记录已经获得session_key的当前时间值
 
       // request.headers = { //设置请求头
       //   "content-type": "application/json",
@@ -96,11 +105,20 @@ fly_key.interceptors.response.use(function (response) {
     }).finally(function () {
 
       _this.unlock(); //解锁后，会继续发起请求队列中的任务
+
+      // 清空时间间隔
+      intervalTime = null;
     }).then(function () {
 
       console.log("5.response,\u89E3\u9501\u8BF7\u6C42,\u7EE7\u7EED\u4E4B\u524D\u7684\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
       return fly_key.request(response.request); //继续之前的请求
     });
+  } else if (response.data.status === -1 && intervalTime < timeout) {
+
+    key = wx.getStorageSync("session_key"); //再次获取最新的session_key
+    response.request.body.key = key;
+    console.log("5.response,\u5DF2\u7ECF\u66F4\u65B0\u4E86session_key\uFF0C\u7EE7\u7EED\u4E4B\u524D\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
+    return fly_key.request(response.request); //继续之前的请求
   } else {
     console.log("3.response,返回response", response);
     return response;
