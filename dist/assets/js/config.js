@@ -1,14 +1,12 @@
-'use strict';
+const url = 'https://duode.cenbel.com'
 
-var url = 'https://duode.cenbel.com';
-
-var config = {
+const config = {
   url: url,
   imgUrl: url + '/images/',
   uploadUrl: url + '/api/weixin/upload_ajax.ashx',
   // imgUrl: './images/',
   // getUrl: url + '/data/get/getData.ashx',
-  apiUrl: url + '/api/weixin/wx.ashx?action='
+  apiUrl: url + '/api/weixin/wx.ashx?action=',
 
 };
 

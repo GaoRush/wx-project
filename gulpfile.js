@@ -258,19 +258,19 @@ gulp.task('watch_js', function () {
 // 开发模式
 gulp.task(
   'dev',
-  gulp.series(gulp.parallel('json', 'sass', 'wxml', 'js', ), 'assets', 'watch'),
+  gulp.series('clean', gulp.parallel('js', 'json', 'wxml', 'sass'), 'assets', 'watch'),
 )
 
-// 切图模式
+// 切图模式,只监听wxml,sass的修改
 gulp.task(
   'html',
-  gulp.series(gulp.parallel('sass', 'wxml'), 'watch_html'),
+  gulp.series('clean', gulp.parallel('js', 'json', 'wxml', 'sass'), 'assets', 'watch_html'),
 )
 
-// js
+// js，只监听js的修改
 gulp.task(
   'dev_js',
-  gulp.series(gulp.parallel('js'), 'watch_js'),
+  gulp.series('clean', gulp.parallel('js', 'json', 'wxml', 'sass'), 'assets', 'watch_js'),
 )
 
 

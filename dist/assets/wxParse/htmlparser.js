@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * 
  * htmlParser改造自: https://github.com/blowsie/Pure-JavaScript-HTML5-Parser
@@ -15,8 +13,8 @@
  */
 // Regular Expressions for parsing tags and attributes
 var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
-    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
-    attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+	endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+	attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
 
 // Empty Elements - HTML 5
 var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr");
@@ -38,11 +36,7 @@ var fillAttrs = makeMap("checked,compact,declare,defer,disabled,ismap,multiple,n
 var special = makeMap("wxxxcode-style,script,style,view,scroll-view,block");
 
 function HTMLParser(html, handler) {
-	var index,
-	    chars,
-	    match,
-	    stack = [],
-	    last = html;
+	var index, chars, match, stack = [], last = html;
 	stack.last = function () {
 		return this[this.length - 1];
 	};
@@ -58,7 +52,8 @@ function HTMLParser(html, handler) {
 				index = html.indexOf("-->");
 
 				if (index >= 0) {
-					if (handler.comment) handler.comment(html.substring(4, index));
+					if (handler.comment)
+						handler.comment(html.substring(4, index));
 					html = html.substring(index + 3);
 					chars = false;
 				}
@@ -86,30 +81,35 @@ function HTMLParser(html, handler) {
 
 			if (chars) {
 				index = html.indexOf("<");
-				var text = '';
+				var text = ''
 				while (index === 0) {
-					text += "<";
-					html = html.substring(1);
-					index = html.indexOf("<");
+                                  text += "<";
+                                  html = html.substring(1);
+                                  index = html.indexOf("<");
 				}
 				text += index < 0 ? html : html.substring(0, index);
 				html = index < 0 ? "" : html.substring(index);
 
-				if (handler.chars) handler.chars(text);
+				if (handler.chars)
+					handler.chars(text);
 			}
+
 		} else {
 
 			html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
 				text = text.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, "$1$2");
-				if (handler.chars) handler.chars(text);
+				if (handler.chars)
+					handler.chars(text);
 
 				return "";
 			});
 
+
 			parseEndTag("", stack.last());
 		}
 
-		if (html == last) throw "Parse Error: " + html;
+		if (html == last)
+			throw "Parse Error: " + html;
 		last = html;
 	}
 
@@ -131,13 +131,17 @@ function HTMLParser(html, handler) {
 
 		unary = empty[tagName] || !!unary;
 
-		if (!unary) stack.push(tagName);
+		if (!unary)
+			stack.push(tagName);
 
 		if (handler.start) {
 			var attrs = [];
 
 			rest.replace(attr, function (match, name) {
-				var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : fillAttrs[name] ? name : "";
+				var value = arguments[2] ? arguments[2] :
+					arguments[3] ? arguments[3] :
+						arguments[4] ? arguments[4] :
+							fillAttrs[name] ? name : "";
 
 				attrs.push({
 					name: name,
@@ -149,36 +153,40 @@ function HTMLParser(html, handler) {
 			if (handler.start) {
 				handler.start(tagName, attrs, unary);
 			}
+
 		}
 	}
 
 	function parseEndTag(tag, tagName) {
 		// If no tag name is provided, clean shop
-		if (!tagName) var pos = 0;
+		if (!tagName)
+			var pos = 0;
 
 		// Find the closest opened tag of the same type
 		else {
-				tagName = tagName.toLowerCase();
-				for (var pos = stack.length - 1; pos >= 0; pos--) {
-					if (stack[pos] == tagName) break;
-				}
-			}
+			tagName = tagName.toLowerCase();
+			for (var pos = stack.length - 1; pos >= 0; pos--)
+				if (stack[pos] == tagName)
+					break;
+		}
 		if (pos >= 0) {
 			// Close all the open elements, up the stack
-			for (var i = stack.length - 1; i >= pos; i--) {
-				if (handler.end) handler.end(stack[i]);
-			} // Remove the open elements from the stack
+			for (var i = stack.length - 1; i >= pos; i--)
+				if (handler.end)
+					handler.end(stack[i]);
+
+			// Remove the open elements from the stack
 			stack.length = pos;
 		}
 	}
 };
 
+
 function makeMap(str) {
-	var obj = {},
-	    items = str.split(",");
-	for (var i = 0; i < items.length; i++) {
+	var obj = {}, items = str.split(",");
+	for (var i = 0; i < items.length; i++)
 		obj[items[i]] = true;
-	}return obj;
+	return obj;
 }
 
 module.exports = HTMLParser;

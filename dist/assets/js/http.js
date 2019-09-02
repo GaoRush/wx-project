@@ -1,13 +1,16 @@
-"use strict";
+// 由于实际项目要求， 故作了以下的修改：
+// 1，请求分为必须带session_key和不带session_key，不带session_key的请求直接使用flyio的请求
+//    要带session_key的请求作二次封装
+// 2，需带session_key的请求， 让session_key作为请求参数提交给后台
 
-// 封装fly请求以及添加拦截器
-var Fly = require("./wx.js"); //fly请求
-var login = require("./login02.js"); //登录相关函数
-var config = require('./config.js'); //引入配置文件
-var fly_key = new Fly(); //创建fly实例,带key请求
-var fly = new Fly(); //创建fly实例
 
-var key = wx.getStorageSync("session_key");
+// 二次封装fly请求以及添加拦截器
+const Fly = require("./wx.js") //fly请求
+const config = require('./config.js') //引入配置文件
+const fly_key = new Fly(); //创建fly实例,带key请求
+const fly = new Fly(); //创建fly实例
+
+let key = wx.getStorageSync("session_key")
 
 //实例级配置
 fly_key.config.timeout = 5000;
@@ -15,26 +18,28 @@ fly_key.config.timeout = 5000;
 //定义公共headers
 fly_key.config.headers = {
   "x-tag": "flyio"
-  //配置请求基地址
-};fly_key.config.baseURL = config.apiUrl;
+}
+
+//配置请求基地址
+fly_key.config.baseURL = config.apiUrl
 // 实例一个新的fly
-var newFly = new Fly();
+// var newFly = new Fly;
 
-newFly.config = fly_key.config;
+// newFly.config = fly_key.config;
 
-//添加请求拦截器
+//二次封装，添加请求拦截器
 fly_key.interceptors.request.use(function (request) {
   //本次请求的超时时间
-  request.timeout = 5000;
+  request.timeout = 5000
   //打印出请求体
   // console.log(request.body)
 
   // 每次请求带上session_key
-  request.body.key = key;
+  request.body.key = key
 
-  console.log("1.\u53D1\u8D77\u8BF7\u6C42\uFF1Apath:" + request.url + ",baseURL:" + request.baseURL + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", request.body);
+  console.log(`1.发起请求：path:${request.url},baseURL:${request.baseURL},请求参数：`, request.body)
 
-  if (request.body.key) {//检查本地缓存是否有session_key存在,没有则重新获取
+  if (request.body.key) { //检查本地缓存是否有session_key存在,没有则重新获取
     // request.headers = { //设置请求头
     //   "content-type": "application/json",
     //   "is_register": wx.getStorageSync('is_register')
@@ -42,17 +47,17 @@ fly_key.interceptors.request.use(function (request) {
   } else {
     console.log("2.session_key不存在，重新获取,锁住请求");
     fly_key.lock(); //锁住请求
-    return login.getSKey().then(function (res) {
+    return getSKey().then((res) => {
       console.log('3.成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
       wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
       wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
 
 
       // 更新请求参数里的session_key
-      key = res.data.data.s_key;
-      request.body.key = key;
+      key = res.data.data.s_key
+      request.body.key = key
 
-      console.log("4.\u89E3\u9501\u8BF7\u6C42,\u7EE7\u7EED\u4E4B\u524D\u7684\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", request.body);
+      console.log(`4.解锁请求,继续之前的请求：请求地址:${request.url},请求参数：`, request.body)
 
       // request.headers = { //设置请求头
       //   "content-type": "application/json",
@@ -60,74 +65,112 @@ fly_key.interceptors.request.use(function (request) {
       // }
 
       return request; //继续之前的请求
-    }).finally(function () {
-      fly_key.unlock(); //解锁后，会继续发起请求队列中的任务
-    });
-  }
-});
 
-// 添加响应拦截器//不要使用箭头函数，否则调用this.lock()时，this指向不对
+    }).finally(() => {
+      fly_key.unlock() //解锁后，会继续发起请求队列中的任务
+    })
+  }
+})
+
+//二次封装，添加响应拦截器//不要使用箭头函数，否则调用this.lock()时，this指向不对
 fly_key.interceptors.response.use(function (response) {
-  var _this = this;
+    // console.log("response", response);
+    console.log(`2.response,发起请求：请求地址:${response.request.url},请求参数：`, response.request.body)
 
-  // console.log("response", response);
-  console.log("2.response,\u53D1\u8D77\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
+    // 时间间隔， 防止多次重复请求登录态session_key
+    let currentTime = new Date().getTime()
+    let lastSendTime = wx.getStorageSync("lastSendTime") ? wx.getStorageSync("lastSendTime") : currentTime
+    let intervalTime = currentTime - lastSendTime
+    let timeout = 1000 //设置时间间距范围，超出该时间值则发起获取session_key请求
+    console.log("currentTime", currentTime, "lastSendTime", lastSendTime, "intervalTime", intervalTime);
 
-  // 时间间隔， 防止多次重复请求登录态session_key
-  var currentTime = new Date().getTime();
-  var lastSendTime = wx.getStorageSync("lastSendTime") ? wx.getStorageSync("lastSendTime") : currentTime;
-  var intervalTime = currentTime - lastSendTime;
-  var timeout = 1000; //设置时间间距范围，超出该时间值则发起获取session_key请求
-  console.log("currentTime", currentTime, "lastSendTime", lastSendTime, "intervalTime", intervalTime);
+    //验证失效
+    if (response.data.status === -1 && (intervalTime > timeout || intervalTime === 0)) {
 
-  //验证失效
-  if (response.data.status === -1 && (intervalTime > timeout || intervalTime === 0)) {
+      console.log("3.response,session_key失效，重新获取,锁住请求");
 
-    console.log("3.response,session_key失效，重新获取,锁住请求");
+      this.lock(); //锁定响应拦截器，
 
-    this.lock(); //锁定响应拦截器，
+      return getSKey().then(function (res) {
+        console.log('4.response,成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
+        wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
+        wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
+        let lastSendTime = new Date().getTime()
+        wx.setStorageSync("lastSendTime", lastSendTime); //记录已经获得session_key的当前时间值
 
-    return login.getSKey().then(function (res) {
-      console.log('4.response,成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
-      wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
-      wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
-      var lastSendTime = new Date().getTime();
-      wx.setStorageSync("lastSendTime", lastSendTime); //记录已经获得session_key的当前时间值
+        // request.headers = { //设置请求头
+        //   "content-type": "application/json",
+        //   "is_register": wx.getStorageSync('is_register')
+        // }
 
-      // request.headers = { //设置请求头
-      //   "content-type": "application/json",
-      //   "is_register": wx.getStorageSync('is_register')
-      // }
+        // 更新请求参数里的session_key
+        key = res.data.data.s_key
+        response.request.body.key = key
 
-      // 更新请求参数里的session_key
-      key = res.data.data.s_key;
-      response.request.body.key = key;
-    }).finally(function () {
+      }).finally(() => {
 
-      _this.unlock(); //解锁后，会继续发起请求队列中的任务
+        this.unlock() //解锁后，会继续发起请求队列中的任务
 
-      // 清空时间间隔
-      intervalTime = null;
-    }).then(function () {
+        // 清空时间间隔
+        intervalTime = null
 
-      console.log("5.response,\u89E3\u9501\u8BF7\u6C42,\u7EE7\u7EED\u4E4B\u524D\u7684\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
+      }).then(() => {
+
+        console.log(`5.response,解锁请求,继续之前的请求：请求地址:${response.request.url},请求参数：`, response.request.body)
+        return fly_key.request(response.request); //继续之前的请求
+
+      })
+    } else if (response.data.status === -1 && (intervalTime < timeout)) {
+
+      key = wx.getStorageSync("session_key") //再次获取最新的session_key
+      response.request.body.key = key
+      console.log(`5.response,已经更新了session_key，继续之前请求：请求地址:${response.request.url},请求参数：`, response.request.body)
       return fly_key.request(response.request); //继续之前的请求
-    });
-  } else if (response.data.status === -1 && intervalTime < timeout) {
 
-    key = wx.getStorageSync("session_key"); //再次获取最新的session_key
-    response.request.body.key = key;
-    console.log("5.response,\u5DF2\u7ECF\u66F4\u65B0\u4E86session_key\uFF0C\u7EE7\u7EED\u4E4B\u524D\u8BF7\u6C42\uFF1A\u8BF7\u6C42\u5730\u5740:" + response.request.url + ",\u8BF7\u6C42\u53C2\u6570\uFF1A", response.request.body);
-    return fly_key.request(response.request); //继续之前的请求
-  } else {
-    console.log("3.response,返回response", response);
-    return response;
+    } else {
+      console.log("3.response,返回response", response);
+      return response;
+    }
+  },
+  function (err) {
+    console.log("响应拦截器,error-interceptor", err)
   }
-}, function (err) {
-  console.log("响应拦截器,error-interceptor", err);
-});
+)
+
+// 获取session_key
+function getSKey() {
+
+  return new Promise((resolve, reject) => {
+
+    // 1.换取code
+    wx.login({
+      success(res) {
+        if (res.code) {
+          //2.发送code，获取session_key
+          wx.request({
+            url: config.apiUrl + "login",
+            data: {
+              code: res.code
+            },
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success(res02) {
+              resolve(res02)
+            }
+          })
+
+        } else {
+          // console.log('登录失败！' + res.errMsg)
+          reject(res)
+        }
+      }
+    })
+
+  });
+}
 
 module.exports = {
   fly_key: fly_key,
   fly: fly
-};
+}

@@ -1,6 +1,11 @@
-// 封装fly请求以及添加拦截器
+// 由于实际项目要求， 故作了以下的修改：
+// 1，请求分为必须带session_key和不带session_key，不带session_key的请求直接使用flyio的请求
+//    要带session_key的请求作二次封装
+// 2，需带session_key的请求， 让session_key作为请求参数提交给后台
+
+
+// 二次封装fly请求以及添加拦截器
 const Fly = require("./wx.js") //fly请求
-const login = require("./login02.js") //登录相关函数
 const config = require('./config.js') //引入配置文件
 const fly_key = new Fly(); //创建fly实例,带key请求
 const fly = new Fly(); //创建fly实例
@@ -14,16 +19,15 @@ fly_key.config.timeout = 5000;
 fly_key.config.headers = {
   "x-tag": "flyio"
 }
+
 //配置请求基地址
 fly_key.config.baseURL = config.apiUrl
 // 实例一个新的fly
-var newFly = new Fly;
+// var newFly = new Fly;
 
+// newFly.config = fly_key.config;
 
-
-newFly.config = fly_key.config;
-
-//添加请求拦截器
+//二次封装，添加请求拦截器
 fly_key.interceptors.request.use(function (request) {
   //本次请求的超时时间
   request.timeout = 5000
@@ -43,7 +47,7 @@ fly_key.interceptors.request.use(function (request) {
   } else {
     console.log("2.session_key不存在，重新获取,锁住请求");
     fly_key.lock(); //锁住请求
-    return login.getSKey().then((res) => {
+    return getSKey().then((res) => {
       console.log('3.成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
       wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
       wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
@@ -68,7 +72,7 @@ fly_key.interceptors.request.use(function (request) {
   }
 })
 
-// 添加响应拦截器//不要使用箭头函数，否则调用this.lock()时，this指向不对
+//二次封装，添加响应拦截器//不要使用箭头函数，否则调用this.lock()时，this指向不对
 fly_key.interceptors.response.use(function (response) {
     // console.log("response", response);
     console.log(`2.response,发起请求：请求地址:${response.request.url},请求参数：`, response.request.body)
@@ -87,7 +91,7 @@ fly_key.interceptors.response.use(function (response) {
 
       this.lock(); //锁定响应拦截器，
 
-      return login.getSKey().then(function (res) {
+      return getSKey().then(function (res) {
         console.log('4.response,成功更新session_key:', res.data.data.s_key, "is_register", res.data.data.is_register);
         wx.setStorageSync("session_key", res.data.data.s_key); //缓存session_key
         wx.setStorageSync("is_register", res.data.data.is_register); //缓存is_register,是否新用户
@@ -132,6 +136,39 @@ fly_key.interceptors.response.use(function (response) {
     console.log("响应拦截器,error-interceptor", err)
   }
 )
+
+// 获取session_key
+function getSKey() {
+
+  return new Promise((resolve, reject) => {
+
+    // 1.换取code
+    wx.login({
+      success(res) {
+        if (res.code) {
+          //2.发送code，获取session_key
+          wx.request({
+            url: config.apiUrl + "login",
+            data: {
+              code: res.code
+            },
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success(res02) {
+              resolve(res02)
+            }
+          })
+
+        } else {
+          // console.log('登录失败！' + res.errMsg)
+          reject(res)
+        }
+      }
+    })
+
+  });
+}
 
 module.exports = {
   fly_key: fly_key,
